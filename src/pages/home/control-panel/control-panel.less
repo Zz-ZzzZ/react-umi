@@ -1,0 +1,30 @@
+.panel{
+  display: flex;
+  justify-content: space-between;
+
+  &Item{
+    width: 24%;
+    height: 120px;
+    background: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 4px 4px 40px  rgba(0,0,0,0.05);
+
+    &Icon{
+      font-size: 55px;
+    }
+
+    &Label{
+      font-size: 17px;
+      font-weight: 500;
+
+      :first-child{
+        color:#8c8c8c;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
