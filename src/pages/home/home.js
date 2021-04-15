@@ -41,6 +41,7 @@ const Home = () => {
     const { data } = await axios.get('/api/control');
     if (JSON.stringify(data)) {
       for (const item of controlPanelStatic) {
+        // 根据数组内的key与后台数据返回的字段作比对
         if (data.hasOwnProperty(item['key'])) {
           item['num'] = data[item['key']];
         }
@@ -56,11 +57,13 @@ const Home = () => {
     }
   };
 
+  // 跳过就删除此项
   const handleClickPassItem = id => {
     const list = toDoList.filter(item => item.id !== id);
     setToDoList(list);
   };
 
+  // 完成某一项打一个标识
   const handleClickSuccessItem = id => {
     const list = [...toDoList];
     const index = list.findIndex(item => item.id === id);

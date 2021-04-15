@@ -1,6 +1,6 @@
 import { Menu } from 'antd';
 import { BankOutlined, FormOutlined } from '@ant-design/icons';
-import { router } from 'umi';
+import { history } from 'umi';
 import { connect } from 'dva';
 
 const menuList = [
@@ -18,18 +18,18 @@ const menuList = [
   },
 ];
 
-const MenuBar = ({ state, location }) => {
+const MenuBar = ({ state }) => {
   // 菜单收缩控制
   const { isShowDetailMenu } = state;
 
   // 点击为当前项不做跳转
   const handleClickGoMenuItem = index => {
-    return menuList[index].path !== location.pathname && router.push(menuList[index].path);
+    return menuList[index].path !== history.pathname && history.push(menuList[index].path);
   };
 
   // 根据路由路径判断默认菜单选中项
   const getDefaultKey = () => {
-    const menu = menuList.find(item => item.path === location.pathname);
+    const menu = menuList.find(item => item.path === history.pathname);
     return menu ? menu.key.toString() : '1';
   };
 
