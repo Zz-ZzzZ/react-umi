@@ -9,6 +9,7 @@
 * umi.js(企业级应用框架)
 * dva.js(状态管理)
 * bizcharts图表插件(基于G2)
+* react-transition-group 路由切换动画 
 
 ### 数据源
 由脚手架自带的mock模拟简单的网络请求

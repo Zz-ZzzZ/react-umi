@@ -24,12 +24,12 @@ const MenuBar = ({ state }) => {
 
   // 点击为当前项不做跳转
   const handleClickGoMenuItem = index => {
-    return menuList[index].path !== history.pathname && history.push(menuList[index].path);
+    return menuList[index].path !== history.location.pathname && history.push(menuList[index].path);
   };
 
   // 根据路由路径判断默认菜单选中项
   const getDefaultKey = () => {
-    const menu = menuList.find(item => item.path === history.pathname);
+    const menu = menuList.find(item => item.path === history.location.pathname);
     return menu ? menu.key.toString() : '1';
   };
 

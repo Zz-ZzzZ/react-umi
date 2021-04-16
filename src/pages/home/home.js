@@ -58,15 +58,15 @@ const Home = () => {
   };
 
   // 跳过就删除此项
-  const handleClickPassItem = id => {
-    const list = toDoList.filter(item => item.id !== id);
+  const handleClickPassItem = (id) => {
+    const list = toDoList.filter((item) => item.id !== id);
     setToDoList(list);
   };
 
   // 完成某一项打一个标识
-  const handleClickSuccessItem = id => {
+  const handleClickSuccessItem = (id) => {
     const list = [...toDoList];
-    const index = list.findIndex(item => item.id === id);
+    const index = list.findIndex((item) => item.id === id);
     if (id !== -1) {
       list[index]['isSuccess'] = true;
     }
@@ -76,6 +76,7 @@ const Home = () => {
   useEffect(() => {
     getControlPanel();
     getToDoList();
+    return () => {};
   }, []);
 
   return (

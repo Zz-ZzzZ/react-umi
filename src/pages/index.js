@@ -11,11 +11,11 @@ const Index = withRouter(({ children, location, history }) => {
       <NavBar />
       <div className={style.container}>
         <div className={style.containerLeft}>
-          <MenuBar location={location} />
+          <MenuBar />
         </div>
         <div className={style.containerRight}>
           <TransitionGroup
-            childFactory={child => React.cloneElement(child, { classNames: 'forward' })}
+            childFactory={(child) => React.cloneElement(child, { classNames: 'forward' })}
             className={style.transitionBox}
           >
             <CSSTransition key={location.pathname} timeout={500}>

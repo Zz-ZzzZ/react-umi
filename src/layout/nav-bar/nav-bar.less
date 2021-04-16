@@ -5,12 +5,13 @@
   display: flex;
   align-items: center;
 
-  &Logo {
+  &Left {
     font-size: 18px;
     font-weight: 500;
     margin-left: 40px;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
     img{
       width: 35px;
@@ -28,15 +29,42 @@
       }
     }
 
+    &Name{
+      margin-left: 15px;
+    }
+
+    &PackUpIcon{
+      font-size: 18px;
+      margin-left: 25px;
+      cursor: pointer;
+    }
   }
 
-  &ProjectName{
-    margin-left: 15px;
-  }
+  &Right{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    line-height: 20px;
 
-  &PackUpIcon{
-    font-size: 18px;
-    margin-left: 25px;
-    cursor: pointer;
+    &Timer{
+      margin-right: 40px;
+      color: @title-color_gray;
+    }
+
+    &User{
+      margin-right: 20px;
+      cursor: pointer;
+
+      &Icon{
+        margin-right: 5px;
+        font-size: 19px;
+      }
+
+      span{
+        margin-right: 5px;
+      }
+    }
+
   }
 }
