@@ -18,13 +18,15 @@ const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUse
 const Login = ({ state, dispatch }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { userInfo } = state;
+  const {
+    userInfo: { username, password },
+  } = state;
 
   useEffect(() => {
     // 获取保存账号密码状态
     const status = getRememberStatus();
-    if (status && Object.keys(userInfo).length !== 0) {
-      form.setFieldsValue(userInfo);
+    if (status && username && password) {
+      form.setFieldsValue({ username, password });
     }
     return () => {};
   }, []);
@@ -40,7 +42,7 @@ const Login = ({ state, dispatch }) => {
     const { data } = await axios.post('/api/login', { username, password });
     if (data.result) {
       message.success('Login success');
-      dispatch({ type: 'userInfo/setUserInfo', payload: { username, password } });
+      dispatch({ type: 'userInfo/login', payload: { username, password } });
       // 保存此次登录时是否需要保存账号信息
       setRememberStatus(remember);
       history.replace('/');

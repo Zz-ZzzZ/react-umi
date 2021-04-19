@@ -11,18 +11,18 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, Menu, Tag } from 'antd';
 
-const getFullTime = () => {
-  let date = new Date(), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-    Y = date.getFullYear() + '',
-    M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1,
-    D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-    h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
-    m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
-    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-  return `${Y}年${M}月${D}日  ${h}时${m}分${s}秒`;
-};
-
 const Timer = () => {
+  const getFullTime = () => {
+    let date = new Date(), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      Y = date.getFullYear() + '',
+      M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1,
+      D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+      h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
+      m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
+      s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return `${Y}年${M}月${D}日  ${h}时${m}分${s}秒`;
+  };
+
   const [time, setTime] = useState(getFullTime());
 
   useEffect(() => {
@@ -33,19 +33,20 @@ const Timer = () => {
   return <Tag icon={<ClockCircleOutlined />}>{time}</Tag>;
 };
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="https://www.antgroup.com">设置</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="https://www.aliyun.com">退出</a>
-    </Menu.Item>
-  </Menu>
-);
-
 const NavBar = ({ state, dispatch }) => {
   const { isShowDetailMenu } = state;
+
+  const handleClickMenu = ({ key }) => {};
+  const menu = (
+    <Menu onClick={handleClickMenu}>
+      <Menu.Item key="0">
+        <a href="https://www.antgroup.com">设置</a>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <a href="https://www.aliyun.com">退出</a>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className={style.nav}>
@@ -63,7 +64,7 @@ const NavBar = ({ state, dispatch }) => {
         <div className={style.navRightTimer}>
           <Timer />
         </div>
-        <Dropdown overlay={menu} trigger={['click']}>
+        <Dropdown overlay={Menu} trigger={['click']} on>
           <div className={style.navRightUser}>
             <UserOutlined className={style.navRightUserIcon} />
             <span>admin</span>
