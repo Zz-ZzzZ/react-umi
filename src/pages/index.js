@@ -6,6 +6,7 @@ import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Index = withRouter(({ children, location, history }) => {
+
   return (
     <div className={style.main}>
       <NavBar />

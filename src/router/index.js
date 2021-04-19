@@ -7,14 +7,15 @@ export default [
   {
     path: '/',
     component: '@/pages/index',
-    wrappers: ['../wrappers/auth'],
-    exact: true,
+    wrappers: ['@/wrappers/auth'],
     routes: [
       {
+        exact: true,
         path: '/',
         component: '@/pages/home/home',
       },
       {
+        exact: true,
         path: '/form',
         component: '@/pages/form/form',
       },

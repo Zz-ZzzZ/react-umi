@@ -1,62 +1,104 @@
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
+import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { connect, history } from 'umi';
 import style from './login.less';
 import logo from '@/assets/logo.png';
-import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import AntdSpinCustom from '@/base/spin/spin';
 
-const formItemLayout = {
-  labelCol: { span: 5 },
-  wrapperCol: { span: 19 },
+const setRememberStatus = (status) => {
+  status
+    ? sessionStorage.setItem('isRememberUser', JSON.stringify(true))
+    : sessionStorage.setItem('isRememberUser', JSON.stringify(false));
 };
 
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUser'));
 
-const Login = () => {
+const Login = ({ state, dispatch }) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const { userInfo } = state;
 
-  const handleClickFillForm = (values) => {
-    console.log(values);
+  useEffect(() => {
+    // 获取保存账号密码状态
+    const status = getRememberStatus();
+    if (status && Object.keys(userInfo).length !== 0) {
+      form.setFieldsValue(userInfo);
+    }
+    return () => {};
+  }, []);
+
+  // 忘记密码时填充信息到表单
+  const handleClickForgot = (e) => {
+    e.preventDefault();
+    form.setFieldsValue({ username: 'admin', password: 'admin' });
+  };
+
+  const handleSubmitForm = async ({ username, password, remember }) => {
+    setLoading(true);
+    const { data } = await axios.post('/api/login', { username, password });
+    if (data.result) {
+      message.success('Login success');
+      dispatch({ type: 'userInfo/setUserInfo', payload: { username, password } });
+      // 保存此次登录时是否需要保存账号信息
+      setRememberStatus(remember);
+      history.replace('/');
+    } else {
+      message.success('Login fail');
+    }
+    setLoading(false);
   };
 
   return (
-    <div className={style.login}>
-      <div className={style.loginTitle}>
-        <img src={logo} alt="" className={style.loginTitleIcon} />
-      </div>
-      <div className={style.loginForm}>
-        <Form {...formItemLayout}>
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input you username' }]}
+    <AntdSpinCustom spinning={loading} tip="Loading">
+      <div className={style.login}>
+        <div className={style.loginBg}></div>
+        <div className={style.loginTitle}>
+          <img src={logo} alt="" className={style.loginTitleIcon} />
+        </div>
+        <div className={style.loginForm}>
+          <Form
+            layout="vertical"
+            initialValues={{ remember: true }}
+            form={form}
+            onFinish={handleSubmitForm}
           >
-            <Input prefix={<UserOutlined />} placeholder="Input your username" />
-          </Form.Item>
+            <Form.Item
+              name="username"
+              rules={[{ required: true, message: 'Please input you username' }]}
+            >
+              <Input prefix={<UserOutlined />} placeholder="手动输入admin或点击忘记密码" />
+            </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input you password' }]}
-          >
-            <Input.Password prefix={<KeyOutlined />} placeholder="Input your password" />
-          </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[{ required: true, message: 'Please input you password' }]}
+            >
+              <Input.Password prefix={<KeyOutlined />} placeholder="手动输入admin或点击忘记密码" />
+            </Form.Item>
+            <Form.Item>
+              <div className={style.loginFormForgot}>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>Remember Me</Checkbox>
+                </Form.Item>
 
-          <Form.Item {...tailLayout} style={{ marginTop: 10 }}>
-            <Button type="primary" htmlType="submit" style={{ marginRight: 10 }}>
-              Submit
-            </Button>
-            <Button htmlType="button" onClick={() => form.resetFields()}>
-              Reset
-            </Button>
-            <Button type="link" htmlType="button" onClick={handleClickFillForm}>
-              Fill form
-            </Button>
-          </Form.Item>
-        </Form>
+                <a href="" onClick={(e) => handleClickForgot(e)}>
+                  Forgot password ?
+                </a>
+              </div>
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-    </div>
+    </AntdSpinCustom>
   );
 };
 
-export default Login;
+export default connect((state) => ({ state }))(Login);

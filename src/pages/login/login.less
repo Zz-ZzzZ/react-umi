@@ -1,23 +1,49 @@
-.login{
+.login {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.7);
 
-  &Title{
+
+  &Bg {
+    width: 100%;
+    height: 100%;
+    background: #f0f2f5 url("~@/assets/bg.svg");
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &Title {
     margin-bottom: 30px;
 
-    &Icon{
+    &Icon {
       width: 100px;
       height: 100px;
+      animation: rotateLogo 10s linear infinite;
+
+    }
+    @keyframes rotateLogo {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 
-  &Form{
-    width: 30%;
-    height: 20%;
+  &Form {
+    width: 350px;
+
+    &Forgot{
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
+

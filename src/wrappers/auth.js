@@ -1,11 +1,10 @@
-import { Redirect } from 'umi';
-import { useUserInfo } from '@/utils/custom-hooks';
+import { Redirect, useStore } from 'umi';
 
 // 登陆权限校验
 export default ({ children }) => {
-  const [userInfo] = useUserInfo();
-  if (userInfo) {
-    return <div>{children}</div>;
+  const store = useStore().getState();
+  if (Object.keys(store.userInfo).length !== 0) {
+    return <>{children}</>;
   } else {
     return <Redirect to="/login" />;
   }
