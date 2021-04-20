@@ -1,49 +1,88 @@
 import style from './nav-bar.less';
 import logo from '@/assets/logo.png';
-import { useEffect, useState } from 'react';
 import { connect } from 'dva';
+import { history } from 'umi';
+import { useRef, useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
   DownOutlined,
-  ClockCircleOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Menu, Tag } from 'antd';
+import { Dropdown, Menu, Modal, notification, Drawer } from 'antd';
+import Timer from '@/base/timer/timer';
+import UserDrawer from '@/layout/nav-bar/user-drawer/user-drawer';
+import axios from 'axios';
 
-const Timer = () => {
-  const getFullTime = () => {
-    let date = new Date(), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      Y = date.getFullYear() + '',
-      M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1,
-      D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-      h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
-      m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
-      s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    return `${Y}年${M}月${D}日  ${h}时${m}分${s}秒`;
-  };
-
-  const [time, setTime] = useState(getFullTime());
-
-  useEffect(() => {
-    let timer = setInterval(() => setTime(getFullTime()), 1000);
-    return () => clearInterval(timer);
-  }, [time]);
-
-  return <Tag icon={<ClockCircleOutlined />}>{time}</Tag>;
-};
+const { confirm } = Modal;
 
 const NavBar = ({ state, dispatch }) => {
-  const { isShowDetailMenu } = state;
+  const [userInfo, setUserInfo] = useState({});
+  const userDrawer = useRef(null);
+  const {
+    isShowDetailMenu,
+    userInfo: { username },
+  } = state;
 
-  const handleClickMenu = ({ key }) => {};
+  const getUserInfo = async () => {
+    const { data } = await axios.get('/api/getUser');
+    setUserInfo(data);
+    dispatch({ type: 'userInfo/setUserInfo', payload: data });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    return () => {};
+  }, []);
+
+  console.log('11');
+
+  const showUserDrawer = () => {
+    userDrawer.current.showDrawer();
+  };
+
+  const showExitLoginConfirm = () => {
+    confirm({
+      title: '退出登录',
+      icon: <ExclamationCircleOutlined />,
+      content: '确定要退出登录吗',
+      async onOk() {
+        const { data } = await axios.post('/api/exitLogin', { username });
+        if (data.result) {
+          dispatch({ type: 'userInfo/clearUserInfo' });
+          history.replace('/login');
+          notification.success({
+            message: '通知',
+            description: '已成功退出当前用户',
+          });
+        }
+      },
+    });
+  };
+
+  const handleClickMenu = ({ key }) => {
+    switch (key) {
+      case '0':
+        showUserDrawer();
+        return;
+      case '1':
+        showExitLoginConfirm();
+        return;
+    }
+  };
+
+  const handleChangeUserSuccess = () => {
+    return getUserInfo();
+  };
+
   const menu = (
     <Menu onClick={handleClickMenu}>
       <Menu.Item key="0">
-        <a href="https://www.antgroup.com">设置</a>
+        <span>设置</span>
       </Menu.Item>
       <Menu.Item key="1">
-        <a href="https://www.aliyun.com">退出</a>
+        <span>退出</span>
       </Menu.Item>
     </Menu>
   );
@@ -64,14 +103,19 @@ const NavBar = ({ state, dispatch }) => {
         <div className={style.navRightTimer}>
           <Timer />
         </div>
-        <Dropdown overlay={Menu} trigger={['click']} on>
+        <Dropdown overlay={menu} trigger={['click']}>
           <div className={style.navRightUser}>
             <UserOutlined className={style.navRightUserIcon} />
-            <span>admin</span>
+            <span>{userInfo.name}</span>
             <DownOutlined />
           </div>
         </Dropdown>
       </div>
+      <UserDrawer
+        ref={userDrawer}
+        userInfo={userInfo}
+        handleChangeUserSuccess={handleChangeUserSuccess}
+      />
     </div>
   );
 };

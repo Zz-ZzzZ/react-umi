@@ -1,5 +1,5 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
-import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { connect, history } from 'umi';
 import style from './login.less';
@@ -77,7 +77,7 @@ const Login = ({ state, dispatch }) => {
               name="password"
               rules={[{ required: true, message: 'Please input you password' }]}
             >
-              <Input.Password prefix={<KeyOutlined />} placeholder="手动输入admin或点击忘记密码" />
+              <Input.Password prefix={<LockOutlined />} placeholder="手动输入admin或点击忘记密码" />
             </Form.Item>
             <Form.Item>
               <div className={style.loginFormForgot}>

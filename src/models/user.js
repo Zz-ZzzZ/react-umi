@@ -16,12 +16,13 @@ const initState = {
 export default {
   namespace: 'userInfo',
   // 深拷贝一份用作清除登录数据
-  state: JSON.parse(JSON.stringify(initState)),
+  state: { ...initState },
   reducers: {
     setUserInfo: (state, { payload }) => {
-      console.log(state);
-      sessionStorage.setItem('userInfo', JSON.stringify(payload));
-      return payload;
+      const { name, tel, address } = payload;
+      const value = { ...state, name, tel, address };
+      setUserInfoToStorage(value);
+      return value;
     },
     // 储存登录账号/密码
     login: (state, { payload }) => {
@@ -32,7 +33,7 @@ export default {
     },
     clearUserInfo: () => {
       sessionStorage.removeItem('userInfo');
-      return initState;
+      return { ...initState };
     },
   },
 };
