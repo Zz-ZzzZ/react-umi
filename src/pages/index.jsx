@@ -1,12 +1,11 @@
-import NavBar from '../layout/nav-bar/nav-bar';
-import MenuBar from '../layout/menu-bar/menu-bar';
+import NavBar from '@/layout/nav-bar/nav-bar';
+import MenuBar from '@/layout/menu-bar/menu-bar';
 import style from './index.less';
 import { withRouter } from 'umi';
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Index = withRouter(({ children, location, history }) => {
-
   return (
     <div className={style.main}>
       <NavBar />
