@@ -41,21 +41,21 @@ const Login = ({ state, dispatch }) => {
     setLoading(true);
     const { data } = await axios.post('/api/login', { username, password });
     if (data.result) {
-      message.success('Login success');
+      message.success('登录成功');
       dispatch({ type: 'userInfo/login', payload: { username, password } });
       // 保存此次登录时是否需要保存账号信息
       setRememberStatus(remember);
       history.replace('/');
     } else {
-      message.success('Login fail');
+      message.error('登录失败，请检查用户名或密码是否正确');
     }
     setLoading(false);
   };
 
   return (
-    <AntdSpinCustom spinning={loading} tip="Loading">
+    <AntdSpinCustom spinning={loading} tip="登录中...">
       <div className={style.login}>
-        <div className={style.loginBg}></div>
+        <div className={style.loginBg} />
         <div className={style.loginTitle}>
           <img src={logo} alt="" className={style.loginTitleIcon} />
         </div>

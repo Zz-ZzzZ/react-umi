@@ -16,8 +16,8 @@ export default [
       },
       {
         exact: true,
-        path: '/form',
-        component: '@/pages/form/form',
+        path: '/table',
+        component: '@/pages/table/table',
       },
     ],
   },

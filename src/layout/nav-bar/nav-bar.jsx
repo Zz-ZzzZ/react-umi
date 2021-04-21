@@ -36,8 +36,6 @@ const NavBar = ({ state, dispatch }) => {
     return () => {};
   }, []);
 
-  console.log('11');
-
   const showUserDrawer = () => {
     userDrawer.current.showDrawer();
   };
@@ -70,10 +68,6 @@ const NavBar = ({ state, dispatch }) => {
         showExitLoginConfirm();
         return;
     }
-  };
-
-  const handleChangeUserSuccess = () => {
-    return getUserInfo();
   };
 
   const menu = (
@@ -114,7 +108,7 @@ const NavBar = ({ state, dispatch }) => {
       <UserDrawer
         ref={userDrawer}
         userInfo={userInfo}
-        handleChangeUserSuccess={handleChangeUserSuccess}
+        handleChangeUserSuccess={() => getUserInfo()}
       />
     </div>
   );

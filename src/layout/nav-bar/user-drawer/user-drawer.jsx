@@ -48,12 +48,15 @@ const UserDrawer = forwardRef(({ userInfo, handleChangeUserSuccess }, ref) => {
 
   const handleFormSubmit = async (value) => {
     setLoading(true);
-    const { data } = await axios.post('/api/setUser', value);
-    if (data.result) {
-      message.success('修改成功');
-      setIsShowDrawer(false);
-      handleChangeUserSuccess();
+    // 简单比较数据有无更改
+    if (JSON.stringify(value) !== JSON.stringify(userInfo)) {
+      const { data } = await axios.post('/api/setUser', value);
+      if (data.result) {
+        message.success('修改成功');
+        handleChangeUserSuccess();
+      }
     }
+    setIsShowDrawer(false);
     setLoading(false);
   };
 
