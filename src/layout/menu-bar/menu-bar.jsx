@@ -2,16 +2,17 @@ import { Menu } from 'antd';
 import { BankOutlined, TableOutlined } from '@ant-design/icons';
 import { history } from 'umi';
 import { connect } from 'dva';
+import { useState, useMemo } from 'react';
 
 const menuList = [
   {
-    key: 1,
+    key: '1',
     icon: <BankOutlined style={{ fontSize: '16px' }} />,
     name: '总览',
     path: '/',
   },
   {
-    key: 2,
+    key: '2',
     icon: <TableOutlined style={{ fontSize: '16px' }} />,
     name: '表格',
     path: '/table',
@@ -21,24 +22,32 @@ const menuList = [
 const MenuBar = ({ state }) => {
   // 菜单收缩控制
   const { isShowDetailMenu } = state;
+  const [routePath, setRoutePath] = useState(history.location.pathname);
+
+  // 路由更改不仅会出现在菜单点击还会出现在浏览器前进后退按钮
+  // 因此Menu菜单的选中应由路由监听统一管理
+  history.listen(({ pathname }) => {
+    if (pathname !== routePath) setRoutePath(pathname);
+  });
 
   // 点击为当前项不做跳转
   const handleClickGoMenuItem = (index) => {
-    return menuList[index].path !== history.location.pathname && history.push(menuList[index].path);
+    if (menuList[index].path !== history.location.pathname) {
+      history.push(menuList[index].path);
+    }
   };
 
-  // 根据路由路径判断默认菜单选中项
-  const getDefaultKey = () => {
-    const menu = menuList.find((item) => item.path === history.location.pathname);
-    return menu ? menu.key.toString() : '1';
-  };
+  const getMenuKey = useMemo(() => {
+    const menu = menuList.find((item) => item.path === routePath);
+    return menu ? menu['key'] : '1';
+  }, [routePath]);
 
   return (
     <Menu
       theme="light"
       mode="inline"
       style={{ width: isShowDetailMenu && '200px', height: '100%' }}
-      defaultSelectedKeys={[getDefaultKey()]}
+      selectedKeys={[getMenuKey]}
       inlineCollapsed={!isShowDetailMenu}
       onClick={({ item }) => handleClickGoMenuItem(item.props.index)}
     >
