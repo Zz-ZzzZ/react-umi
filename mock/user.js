@@ -5,7 +5,6 @@ let userInfo = {
 };
 export default {
   'POST /api/login': (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     // 模拟pending时间
     const timer = setTimeout(() => {
       const {
@@ -20,7 +19,6 @@ export default {
     }, 1000);
   },
   'POST /api/exitLogin': (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     const timer = setTimeout(() => {
       const {
         body: { username },
@@ -35,7 +33,6 @@ export default {
   },
   'GET /api/getUser': userInfo,
   'POST /api/setUser': (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     const timer = setTimeout(() => {
       const { body } = req;
       if (body.name) {

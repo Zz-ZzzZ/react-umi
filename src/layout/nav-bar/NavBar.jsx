@@ -1,7 +1,6 @@
-import style from './nav-bar.less';
+import style from './NavBar.less';
 import logo from '@/assets/logo.png';
-import { connect } from 'dva';
-import { history } from 'umi';
+import { history, connect } from 'umi';
 import { useRef, useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
@@ -11,8 +10,8 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { Dropdown, Menu, Modal, notification, Drawer } from 'antd';
-import Timer from '@/base/timer/timer';
-import UserDrawer from '@/layout/nav-bar/user-drawer/user-drawer';
+import Tmer from '@/base/timer/timer';
+import UserDrawer from '@/layout/nav-bar/user-drawer/UserDrawer';
 import axios from 'axios';
 
 const { confirm } = Modal;
@@ -95,7 +94,7 @@ const NavBar = ({ state, dispatch }) => {
       </div>
       <div className={style.navRight}>
         <div className={style.navRightTimer}>
-          <Timer />
+          <Tmer />
         </div>
         <Dropdown overlay={menu} trigger={['click']}>
           <div className={style.navRightUser}>

@@ -1,6 +1,6 @@
 import { Card, Button, Tag } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import style from './todo-list.less';
+import style from './TodoList.less';
 import { memo } from 'react';
 
 const TodoList = memo(({ toDoList, handleClickPassItem, handleClickSuccessItem }) => {

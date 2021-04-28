@@ -1,10 +1,10 @@
-import style from './control-panel.less';
+import style from './ControlPanel.less';
 import { memo } from 'react';
 
 const ControlPanel = memo(({ panelList }) => {
   return (
     <div className={style.panel}>
-      {panelList.map(item => (
+      {panelList.map((item) => (
         <div className={style.panelItem} key={item.id}>
           <div className={style.panelItemIcon}>{item.icon}</div>
           <div className={style.panelItemLabel}>

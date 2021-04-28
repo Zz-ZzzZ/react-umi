@@ -1,8 +1,7 @@
 import { Menu } from 'antd';
 import { BankOutlined, TableOutlined } from '@ant-design/icons';
-import { history } from 'umi';
-import { connect } from 'dva';
-import { useState, useMemo } from 'react';
+import { history, connect } from 'umi';
+import { useState, useMemo, useEffect } from 'react';
 
 const menuList = [
   {

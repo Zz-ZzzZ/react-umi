@@ -1,10 +1,10 @@
-import style from './home.less';
+import style from './Home.less';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
-import ControlPanel from '@/pages/home/control-panel/control-panel';
-import TodoList from '@/pages/home/todo-list/todo-list';
-import HomeChart from '@/pages/home/home-chart/home-chart';
+import ControlPanel from '@/pages/home/control-panel/ControlPanel';
+import TodoList from '@/pages/home/todo-list/TodoList';
+import HomeChart from '@/pages/home/home-chart/HomeChart';
 
 const controlPanelStatic = [
   {

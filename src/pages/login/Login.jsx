@@ -2,7 +2,7 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { connect, history } from 'umi';
-import style from './login.less';
+import style from './Login.less';
 import logo from '@/assets/logo.png';
 import axios from 'axios';
 import AntdSpinCustom from '@/base/spin/spin';
