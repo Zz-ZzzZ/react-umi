@@ -1,23 +1,23 @@
 export default [
   {
     path: '/login',
-    component: '@/pages/login/login',
+    component: '@/pages/login/Login',
     exact: true,
   },
   {
     path: '/',
-    component: '@/pages/index',
-    wrappers: ['@/wrappers/auth'],
+    component: '@/pages/Index',
+    wrappers: ['@/wrappers/Auth'],
     routes: [
       {
         exact: true,
         path: '/',
-        component: '@/pages/home/home',
+        component: '@/pages/home/Home',
       },
       {
         exact: true,
         path: '/table',
-        component: '@/pages/table/table',
+        component: '@/pages/table/Table',
       },
     ],
   },
