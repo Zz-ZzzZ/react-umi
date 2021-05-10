@@ -5,7 +5,7 @@ import { connect, history } from 'umi';
 import style from './Login.less';
 import logo from '@/assets/logo.png';
 import axios from 'axios';
-import AntdSpinCustom from '@/base/spin/spin';
+import AntdSpinCustom from '@/base/spin/Spin';
 
 const setRememberStatus = (status) => {
   status

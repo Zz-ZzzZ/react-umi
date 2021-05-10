@@ -1,11 +1,12 @@
 import { Table, Input, Select, Button, Space, Modal, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import style from './Table.less';
 import axios from 'axios';
-import { connect } from 'umi';
 import { FileAddOutlined, FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from '@/utils/utils';
 import XLSX from 'xlsx';
+import RowDrawer from '@/pages/table/row-drawer/RowDrawer';
+import AntdSpinCustom from '@/base/spin/Spin';
 
 const { Column } = Table;
 const { Option } = Select;
@@ -15,13 +16,17 @@ let tableDataCopy = [];
 const TableExample = () => {
   const [tableData, setTableData] = useState([]);
   const [condition, setCondition] = useState('city');
+  const [isLoading, setLoading] = useState(false);
+  const rowDrawer = useRef(null);
 
   const getTableData = async () => {
+    setLoading(true);
     const { data } = await axios.get('/api/getTable');
     if (data.result) {
       setTableData(data.list);
       tableDataCopy = [...data.list];
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const TableExample = () => {
     XLSX.writeFile(wb, 'xlsx文件导出demo.xlsx');
   };
 
-  const handleClickDelItem = async (id, name) => {
+  const handleClickDelItem = (id, name) => {
     confirm({
       title: '提示',
       icon: <ExclamationCircleOutlined />,
@@ -96,42 +101,44 @@ const TableExample = () => {
         >
           导出文件
         </Button>
-        <Button className={style.tableActionButton} icon={<FileAddOutlined />}>
-          导入文件
-        </Button>
       </div>
-      <Table dataSource={tableData} rowKey="id">
-        <Column title="城市" dataIndex="city" key="city" ellipsis={true} />
-        <Column title="姓名" dataIndex="name" key="name" width={200} ellipsis={true} />
-        <Column title="邮件" dataIndex="email" key="email" width={200} ellipsis={true} />
-        <Column
-          title="创建时间"
-          dataIndex="createTime"
-          key="createTime"
-          width={200}
-          ellipsis={true}
-        />
-        <Column
-          title="操作"
-          dataIndex="action"
-          key="action"
-          width={200}
-          render={(text, record) => (
-            <Space size="middle">
-              <Button size="small">修改</Button>
-              <Button
-                size="small"
-                type="primary"
-                onClick={() => handleClickDelItem(record.id, record.name)}
-              >
-                删除
-              </Button>
-            </Space>
-          )}
-        />
-      </Table>
+      <AntdSpinCustom spinning={isLoading}>
+        <Table dataSource={tableData} rowKey="id" pagination={{ showSizeChanger: false }}>
+          <Column title="城市" dataIndex="city" key="city" ellipsis={true} />
+          <Column title="姓名" dataIndex="name" key="name" width={200} ellipsis={true} />
+          <Column title="邮件" dataIndex="email" key="email" width={200} ellipsis={true} />
+          <Column
+            title="创建时间"
+            dataIndex="createTime"
+            key="createTime"
+            width={200}
+            ellipsis={true}
+          />
+          <Column
+            title="操作"
+            dataIndex="action"
+            key="action"
+            width={200}
+            render={(text, record) => (
+              <Space size="middle">
+                <Button size="small" onClick={() => rowDrawer.current.showRowDrawer(record)}>
+                  修改
+                </Button>
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={() => handleClickDelItem(record.id, record.name)}
+                >
+                  删除
+                </Button>
+              </Space>
+            )}
+          />
+        </Table>
+      </AntdSpinCustom>
+      <RowDrawer ref={rowDrawer} handleChangeUserSuccess={getTableData} />
     </div>
   );
 };
 
-export default connect((state) => ({ state }))(TableExample);
+export default TableExample;

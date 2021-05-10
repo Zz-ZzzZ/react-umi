@@ -1,3 +1,5 @@
+import { simulationRequestDelayTimer } from './timer';
+
 let userInfo = {
   name: 'admin',
   tel: '17348666666',
@@ -6,7 +8,7 @@ let userInfo = {
 export default {
   'POST /api/login': (req, res) => {
     // 模拟pending时间
-    const timer = setTimeout(() => {
+    simulationRequestDelayTimer(() => {
       const {
         body: { username, password },
       } = req;
@@ -15,11 +17,10 @@ export default {
       } else {
         res.send({ result: false });
       }
-      clearTimeout(timer);
-    }, 1000);
+    });
   },
   'POST /api/exitLogin': (req, res) => {
-    const timer = setTimeout(() => {
+    simulationRequestDelayTimer(() => {
       const {
         body: { username },
       } = req;
@@ -28,12 +29,11 @@ export default {
       } else {
         res.send({ result: false });
       }
-      clearTimeout(timer);
-    }, 1000);
+    });
   },
   'GET /api/getUser': userInfo,
   'POST /api/setUser': (req, res) => {
-    const timer = setTimeout(() => {
+    simulationRequestDelayTimer(() => {
       const { body } = req;
       if (body.name) {
         for (let key in userInfo) {
@@ -45,7 +45,6 @@ export default {
       } else {
         res.send({ result: false });
       }
-      clearTimeout(timer);
-    }, 1000);
+    });
   },
 };

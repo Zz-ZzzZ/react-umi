@@ -1,7 +1,7 @@
 import { Drawer, Form, Input, Cascader, Button, message } from 'antd';
-import { useState, forwardRef, useImperativeHandle, useEffect, memo } from 'react';
+import { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import axios from 'axios';
-import AntdSpinCustom from '@/base/spin/spin';
+import AntdSpinCustom from '@/base/spin/Spin';
 
 const options = [
   {
@@ -32,19 +32,19 @@ const options = [
   },
 ];
 
-const UserDrawer = forwardRef(({ userInfo, handleChangeUserSuccess }, ref) => {
+const UserDrawer = forwardRef(({ handleChangeUserSuccess }, ref) => {
   const [isShowDrawer, setIsShowDrawer] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   const [form] = Form.useForm();
 
   useImperativeHandle(ref, () => ({
-    showDrawer: () => setIsShowDrawer(true),
+    showDrawer: (userInfo) => {
+      form.setFieldsValue(userInfo);
+      setIsShowDrawer(true);
+      setUserInfo(userInfo);
+    },
   }));
-
-  useEffect(() => {
-    form.setFieldsValue(userInfo);
-    return () => {};
-  }, [userInfo]);
 
   const handleFormSubmit = async (value) => {
     setLoading(true);

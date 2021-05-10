@@ -35,10 +35,6 @@ const NavBar = ({ state, dispatch }) => {
     return () => {};
   }, []);
 
-  const showUserDrawer = () => {
-    userDrawer.current.showDrawer();
-  };
-
   const showExitLoginConfirm = () => {
     confirm({
       title: '退出登录',
@@ -61,7 +57,7 @@ const NavBar = ({ state, dispatch }) => {
   const handleClickMenu = ({ key }) => {
     switch (key) {
       case '0':
-        showUserDrawer();
+        userDrawer.current.showDrawer(userInfo);
         return;
       case '1':
         showExitLoginConfirm();
@@ -104,11 +100,7 @@ const NavBar = ({ state, dispatch }) => {
           </div>
         </Dropdown>
       </div>
-      <UserDrawer
-        ref={userDrawer}
-        userInfo={userInfo}
-        handleChangeUserSuccess={() => getUserInfo()}
-      />
+      <UserDrawer ref={userDrawer} handleChangeUserSuccess={getUserInfo} />
     </div>
   );
 };
