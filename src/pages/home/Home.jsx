@@ -4,7 +4,8 @@ import axios from 'axios';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
 import ControlPanel from '@/pages/home/control-panel/ControlPanel';
 import TodoList from '@/pages/home/todo-list/TodoList';
-import HomeChart from '@/pages/home/home-chart/HomeChart';
+import ControlChart from '@/pages/home/control-chart/ControlChart';
+import LineAdvanceChart from '@/pages/home/line-advance-chart/LineAdvanceChart';
 
 const controlPanelStatic = [
   {
@@ -82,9 +83,12 @@ const Home = () => {
   return (
     <div className={style.main}>
       <ControlPanel panelList={controlPanel} />
+      <div className={style.lineChart}>
+        <LineAdvanceChart />
+      </div>
       <div className={style.chartAndTodo}>
         <div className={style.chart}>
-          <HomeChart chartData={controlPanel} />
+          <ControlChart chartData={controlPanel} />
         </div>
         <div className={style.toDo}>
           <TodoList

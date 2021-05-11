@@ -1,31 +1,33 @@
 .main{
   width: 100%;
   height: 100%;
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  overflow: hidden;
 
-  .navBar{
+  &Left{
     flex-shrink: 0;
   }
 
-  .container{
+  &Right{
     flex: 1;
     display: flex;
+    flex-direction: column;
 
-    &Left{
-      padding-top: 5px;
+    &Top{
+      flex-shrink: 0;
+      z-index: 999;
+      position: relative;
     }
 
-    &Right{
-      padding-top: 5px;
-      flex: 1;
-
-      .transitionBox{
-        width: 100%;
-        height: 100%;
-        position: relative
-      }
+    &Bottom{
+      flex:1;
+      overflow:hidden;
     }
   }
+}
+.transitionBox{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
 }

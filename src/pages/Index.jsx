@@ -10,14 +10,14 @@ const Index = withRouter(({ children, location, history }) => {
   return (
     <div className={style.main}>
       <Progress location={location.pathname} />
-      <div className={style.navBar}>
-        <NavBar />
+      <div className={style.mainLeft}>
+        <MenuBar />
       </div>
-      <div className={style.container}>
-        <div className={style.containerLeft}>
-          <MenuBar />
+      <div className={style.mainRight}>
+        <div className={style.mainRightTop}>
+          <NavBar />
         </div>
-        <div className={style.containerRight}>
+        <div className={style.mainRightBottom}>
           <TransitionGroup
             childFactory={(child) => React.cloneElement(child, { classNames: 'forward' })}
             className={style.transitionBox}

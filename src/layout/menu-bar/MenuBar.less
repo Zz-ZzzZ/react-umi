@@ -1,0 +1,40 @@
+.menu{
+  height: 100%;
+
+  &Logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    height: 60px;
+    background: #001529;
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s; ;
+
+    img {
+      width: 35px;
+      height: 35px;
+      display: block;
+      animation: rotateLogo 5s linear infinite;
+
+      @keyframes rotateLogo {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    span{
+      color: #ffffff;
+      margin-left: 15px;
+      white-space: nowrap;
+    }
+  }
+
+  &Block{
+    height: calc(100% - 60px);
+  }
+}

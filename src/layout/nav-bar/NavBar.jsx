@@ -9,10 +9,11 @@ import {
   DownOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Menu, Modal, notification, Drawer } from 'antd';
+import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
 import Tmer from '@/base/timer/timer';
 import UserDrawer from '@/layout/nav-bar/user-drawer/UserDrawer';
 import axios from 'axios';
+import userAvatar from '../../../public/favicon.ico';
 
 const { confirm } = Modal;
 
@@ -78,15 +79,11 @@ const NavBar = ({ state, dispatch }) => {
 
   return (
     <div className={style.nav}>
-      <div className={style.navLeft}>
-        <img src={logo} alt={{}} />
-        <div className={style.navLeftName}>React Admin</div>
-        <div
-          className={style.navLeftPackUpIcon}
-          onClick={() => dispatch({ type: 'isShowDetailMenu/toggle' })}
-        >
-          {isShowDetailMenu ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-        </div>
+      <div
+        className={style.navLeftPackUpIcon}
+        onClick={() => dispatch({ type: 'isShowDetailMenu/toggle' })}
+      >
+        {isShowDetailMenu ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
       </div>
       <div className={style.navRight}>
         <div className={style.navRightTimer}>
@@ -94,7 +91,7 @@ const NavBar = ({ state, dispatch }) => {
         </div>
         <Dropdown overlay={menu} trigger={['click']}>
           <div className={style.navRightUser}>
-            <UserOutlined className={style.navRightUserIcon} />
+            <Avatar src={userAvatar} size="small" />
             <span>{userInfo.name}</span>
             <DownOutlined />
           </div>

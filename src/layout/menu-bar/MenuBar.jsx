@@ -1,7 +1,9 @@
 import { Menu } from 'antd';
 import { BankOutlined, TableOutlined } from '@ant-design/icons';
 import { history, connect } from 'umi';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
+import logo from '@/assets/logo.png';
+import style from './MenuBar.less';
 
 const menuList = [
   {
@@ -42,21 +44,28 @@ const MenuBar = ({ state }) => {
   }, [routePath]);
 
   return (
-    <Menu
-      theme="light"
-      mode="inline"
-      style={{ width: isShowDetailMenu && '200px', height: '100%' }}
-      selectedKeys={[getMenuKey]}
-      inlineCollapsed={!isShowDetailMenu}
-      onClick={({ item }) => handleClickGoMenuItem(item.props.index)}
-    >
-      {menuList.map((item) => (
-        <Menu.Item key={item.key}>
-          {item.icon}
-          <span>{item.name}</span>
-        </Menu.Item>
-      ))}
-    </Menu>
+    <div className={style.menu}>
+      <div className={style.menuLogo} style={{ width: isShowDetailMenu ? '200px' : '80px' }}>
+        <img src={logo} alt={{}} />
+        {isShowDetailMenu && <span>React Admin</span>}
+      </div>
+      <Menu
+        theme="dark"
+        mode="inline"
+        className={style.menuBlock}
+        style={{ width: isShowDetailMenu && '200px' }}
+        selectedKeys={[getMenuKey]}
+        inlineCollapsed={!isShowDetailMenu}
+        onClick={({ item }) => handleClickGoMenuItem(item.props.index)}
+      >
+        {menuList.map((item) => (
+          <Menu.Item key={item.key}>
+            {item.icon}
+            <span>{item.name}</span>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </div>
   );
 };
 export default connect((state) => ({ state }))(MenuBar);
