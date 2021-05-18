@@ -1,5 +1,5 @@
 import style from './Home.less';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
 import ControlPanel from '@/pages/home/control-panel/ControlPanel';
@@ -37,6 +37,7 @@ const controlPanelStatic = [
 const Home = () => {
   const [controlPanel, setControlPanel] = useState([]);
   const [toDoList, setToDoList] = useState([]);
+  const lineRef = useRef(null);
 
   const getControlPanel = async () => {
     const { data } = await axios.get('/api/control');
@@ -83,7 +84,7 @@ const Home = () => {
   return (
     <div className={style.main}>
       <ControlPanel panelList={controlPanel} />
-      <div className={style.lineChart}>
+      <div className={style.lineBlock} ref={lineRef}>
         <LineAdvanceChart />
       </div>
       <div className={style.chartAndTodo}>
