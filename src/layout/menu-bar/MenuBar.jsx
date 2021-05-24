@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { BankOutlined, TableOutlined } from '@ant-design/icons';
+import { BankOutlined, TableOutlined, FileMarkdownOutlined } from '@ant-design/icons';
 import { history, connect } from 'umi';
 import { useState, useMemo } from 'react';
 import logo from '@/assets/logo.png';
@@ -17,6 +17,12 @@ const menuList = [
     icon: <TableOutlined style={{ fontSize: '16px' }} />,
     name: '表格',
     path: '/table',
+  },
+  {
+    key: '3',
+    icon: <FileMarkdownOutlined style={{ fontSize: '16px' }} />,
+    name: 'MarkDown',
+    path: '/mark-down',
   },
 ];
 

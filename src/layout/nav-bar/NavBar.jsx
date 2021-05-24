@@ -44,12 +44,12 @@ const NavBar = ({ state, dispatch }) => {
       async onOk() {
         const { data } = await axios.post('/api/exitLogin', { username });
         if (data.result) {
-          dispatch({ type: 'userInfo/clearUserInfo' });
-          history.replace('/login');
+          await dispatch({ type: 'userInfo/clearUserInfo' });
           notification.success({
             message: '通知',
             description: '已成功退出当前用户',
           });
+          history.replace('/login');
         }
       },
     });

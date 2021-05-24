@@ -1,8 +1,8 @@
-import { Table, Input, Select, Button, Space, Modal, message } from 'antd';
+import { Table, Input, Select, Button, Space, Modal, message, Card } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import style from './Table.less';
 import axios from 'axios';
-import { FileAddOutlined, FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from '@/utils/utils';
 import XLSX from 'xlsx';
 import RowDrawer from '@/pages/table/row-drawer/RowDrawer';
@@ -84,59 +84,60 @@ const TableExample = () => {
 
   return (
     <div className={style.table}>
-      <h2>表格数据</h2>
-      <div className={style.tableAction}>
-        <div className={style.tableActionInput}>
-          <Input
-            placeholder="输入关键词"
-            addonBefore={selectSearchElement}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
+      <Card title="表格数据">
+        <div className={style.tableAction}>
+          <div className={style.tableActionInput}>
+            <Input
+              placeholder="输入关键词"
+              addonBefore={selectSearchElement}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+          </div>
+          <Button
+            type="primary"
+            className={style.tableActionButton}
+            icon={<FileExcelOutlined />}
+            onClick={handleExportFile}
+          >
+            导出文件
+          </Button>
         </div>
-        <Button
-          type="primary"
-          className={style.tableActionButton}
-          icon={<FileExcelOutlined />}
-          onClick={handleExportFile}
-        >
-          导出文件
-        </Button>
-      </div>
-      <AntdSpinCustom spinning={isLoading}>
-        <Table dataSource={tableData} rowKey="id" pagination={{ showSizeChanger: false }}>
-          <Column title="城市" dataIndex="city" key="city" ellipsis={true} />
-          <Column title="姓名" dataIndex="name" key="name" width={200} ellipsis={true} />
-          <Column title="邮件" dataIndex="email" key="email" width={200} ellipsis={true} />
-          <Column
-            title="创建时间"
-            dataIndex="createTime"
-            key="createTime"
-            width={200}
-            ellipsis={true}
-          />
-          <Column
-            title="操作"
-            dataIndex="action"
-            key="action"
-            width={200}
-            render={(text, record) => (
-              <Space size="middle">
-                <Button size="small" onClick={() => rowDrawer.current.showRowDrawer(record)}>
-                  修改
-                </Button>
-                <Button
-                  size="small"
-                  type="primary"
-                  onClick={() => handleClickDelItem(record.id, record.name)}
-                >
-                  删除
-                </Button>
-              </Space>
-            )}
-          />
-        </Table>
-      </AntdSpinCustom>
-      <RowDrawer ref={rowDrawer} handleChangeUserSuccess={getTableData} />
+        <AntdSpinCustom spinning={isLoading}>
+          <Table dataSource={tableData} rowKey="id" pagination={{ showSizeChanger: false }}>
+            <Column title="城市" dataIndex="city" key="city" ellipsis={true} />
+            <Column title="姓名" dataIndex="name" key="name" width={200} ellipsis={true} />
+            <Column title="邮件" dataIndex="email" key="email" width={200} ellipsis={true} />
+            <Column
+              title="创建时间"
+              dataIndex="createTime"
+              key="createTime"
+              width={200}
+              ellipsis={true}
+            />
+            <Column
+              title="操作"
+              dataIndex="action"
+              key="action"
+              width={200}
+              render={(text, record) => (
+                <Space size="middle">
+                  <Button size="small" onClick={() => rowDrawer.current.showRowDrawer(record)}>
+                    修改
+                  </Button>
+                  <Button
+                    size="small"
+                    type="primary"
+                    onClick={() => handleClickDelItem(record.id, record.name)}
+                  >
+                    删除
+                  </Button>
+                </Space>
+              )}
+            />
+          </Table>
+        </AntdSpinCustom>
+        <RowDrawer ref={rowDrawer} handleChangeUserSuccess={getTableData} />
+      </Card>
     </div>
   );
 };

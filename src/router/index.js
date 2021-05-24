@@ -19,6 +19,11 @@ export default [
         path: '/table',
         component: '@/pages/table/Table',
       },
+      {
+        exact: true,
+        path: '/mark-down',
+        component: '@/pages/mark-down/MarkDown',
+      },
     ],
   },
 ];

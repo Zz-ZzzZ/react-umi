@@ -7,3 +7,12 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
+
+export function downLoadFileByBlob(blobObj, fileName) {
+  const a = document.createElement('a');
+  const url = window.URL.createObjectURL(blobObj);
+  a.href = url;
+  a.download = fileName;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
