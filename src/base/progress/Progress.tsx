@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from './Progress.less';
 
-const Progress = ({ location }: { location: number }) => {
+const Progress = ({ location }: { location: string }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {

@@ -3,7 +3,8 @@ import MenuBar from '@/layout/menu-bar/MenuBar';
 import Progress from '@/base/progress/progress';
 import style from './Index.less';
 import { withRouter } from 'umi';
-import React from 'react';
+import React, { ReactElement } from 'react';
+// @ts-ignore
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Index = withRouter(({ children, location, history }) => {
@@ -19,7 +20,9 @@ const Index = withRouter(({ children, location, history }) => {
         </div>
         <div className={style.mainRightBottom}>
           <TransitionGroup
-            childFactory={(child) => React.cloneElement(child, { classNames: 'forward' })}
+            childFactory={(child: ReactElement) =>
+              React.cloneElement(child, { classNames: 'forward' })
+            }
             className={style.transitionBox}
           >
             <CSSTransition key={location.pathname} timeout={500}>
