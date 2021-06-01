@@ -130,13 +130,14 @@ const data = [
 const cardStylePadding = 12 + 12;
 // menuBar的宽度 最大200 最小20
 const menuBarWidth = 200 - 80;
-const LineAdvanceChart = memo(({ state }) => {
-  const { isShowDetailMenu } = state;
+const LineAdvanceChart = memo(({ state }: { state: any }) => {
+  const { isShowDetailMenu }: { isShowDetailMenu: boolean } = state;
   const lineChartRef = useRef(null);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     // 获取div的动态宽度
+    // @ts-ignore
     setWidth(lineChartRef.current.clientWidth - cardStylePadding);
     return () => {};
   }, []);

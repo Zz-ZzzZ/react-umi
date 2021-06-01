@@ -1,21 +1,24 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useState, useEffect } from 'react';
+import React, { FC, MouseEvent, useState, useEffect } from 'react';
 import { connect, history } from 'umi';
 import style from './Login.less';
 import logo from '@/assets/logo.png';
 import axios from 'axios';
 import AntdSpinCustom from '@/base/spin/Spin';
 
-const setRememberStatus = (status) => {
-  status
-    ? sessionStorage.setItem('isRememberUser', JSON.stringify(true))
-    : sessionStorage.setItem('isRememberUser', JSON.stringify(false));
+interface ILogin {
+  state: any;
+  dispatch(value: { type: string; payload: object }): void;
+}
+
+const setRememberStatus = (status: boolean): void => {
+  sessionStorage.setItem('isRememberUser', JSON.stringify(status));
 };
 
-const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUser'));
+const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUser') as string);
 
-const Login = ({ state, dispatch }) => {
+const Login: FC<ILogin> = ({ state, dispatch }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const {
@@ -32,12 +35,20 @@ const Login = ({ state, dispatch }) => {
   }, []);
 
   // 忘记密码时填充信息到表单
-  const handleClickForgot = (e) => {
+  const handleClickForgot = (e: MouseEvent) => {
     e.preventDefault();
     form.setFieldsValue({ username: 'admin', password: 'admin' });
   };
 
-  const handleSubmitForm = async ({ username, password, remember }) => {
+  const handleSubmitForm = async ({
+    username,
+    password,
+    remember,
+  }: {
+    username: string;
+    password: string;
+    remember: boolean;
+  }) => {
     setLoading(true);
     const { data } = await axios.post('/api/login', { username, password });
     if (data.result) {

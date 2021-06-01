@@ -1,7 +1,7 @@
 import style from './ControlPanel.less';
-import { memo } from 'react';
+import { memo, FC } from 'react';
 
-const ControlPanel = memo(({ panelList }) => {
+const ControlPanel: FC<{ panelList: Array<any> }> = memo(({ panelList }) => {
   return (
     <div className={style.panel}>
       {panelList.map((item) => (

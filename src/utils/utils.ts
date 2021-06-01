@@ -1,6 +1,6 @@
-export function debounce(func, delay) {
-  let timer = null;
-  return function () {
+export function debounce(func: Function, delay: number): Function {
+  let timer: NodeJS.Timeout | null = null;
+  return function (this: any) {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       func.call(this, ...arguments);
@@ -8,7 +8,7 @@ export function debounce(func, delay) {
   };
 }
 
-export function downLoadFileByBlob(blobObj, fileName) {
+export function downLoadFileByBlob(blobObj: object, fileName: string): void {
   const a = document.createElement('a');
   const url = window.URL.createObjectURL(blobObj);
   a.href = url;

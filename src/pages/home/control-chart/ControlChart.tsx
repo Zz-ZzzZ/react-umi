@@ -1,13 +1,12 @@
 import { Chart, Interval, Tooltip, Axis, Coordinate, Interaction, getTheme } from 'bizcharts';
-import { memo } from 'react';
+import { memo, FC, ReactNode } from 'react';
 import { Card } from 'antd';
 
-const ControlChart = memo(({ chartData }) => {
+const ControlChart: FC<{ chartData: ReactNode }> = memo(({ chartData }) => {
   const cols = {
     percent: {
-      formatter: (val) => {
-        val = val * 100 + '%';
-        return val;
+      formatter: (val: number): string => {
+        return val * 100 + '%';
       },
     },
   };

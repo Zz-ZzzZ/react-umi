@@ -12,12 +12,12 @@ const { Column } = Table;
 const { Option } = Select;
 const { confirm } = Modal;
 
-let tableDataCopy = [];
+let tableDataCopy: Array<any> = [];
 const TableExample = () => {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState<Array<any>>([]);
   const [condition, setCondition] = useState('city');
   const [isLoading, setLoading] = useState(false);
-  const rowDrawer = useRef(null);
+  const rowDrawer = useRef<any>(null);
 
   const getTableData = async () => {
     setLoading(true);
@@ -34,8 +34,8 @@ const TableExample = () => {
     return () => {};
   }, []);
 
-  const handleSearch = debounce((value) => {
-    const filter = tableDataCopy.filter(
+  const handleSearch = debounce((value: string) => {
+    const filter: Array<any> = tableDataCopy.filter(
       (item) => item[condition].toLowerCase().indexOf(value) !== -1,
     );
     setTableData(filter);
@@ -52,7 +52,7 @@ const TableExample = () => {
     XLSX.writeFile(wb, 'xlsx文件导出demo.xlsx');
   };
 
-  const handleClickDelItem = (id, name) => {
+  const handleClickDelItem = (id: number, name: string) => {
     confirm({
       title: '提示',
       icon: <ExclamationCircleOutlined />,
@@ -90,7 +90,7 @@ const TableExample = () => {
             <Input
               placeholder="输入关键词"
               addonBefore={selectSearchElement}
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
             />
           </div>
           <Button
@@ -119,7 +119,7 @@ const TableExample = () => {
               dataIndex="action"
               key="action"
               width={200}
-              render={(text, record) => (
+              render={(text, record: { id: number; name: string }) => (
                 <Space size="middle">
                   <Button size="small" onClick={() => rowDrawer.current.showRowDrawer(record)}>
                     修改

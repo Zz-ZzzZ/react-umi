@@ -5,6 +5,7 @@ import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-desig
 import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
 import style from './MarkDown.less';
 import { downLoadFileByBlob } from '@/utils/utils';
+import { UploadChangeParam } from 'antd/lib/upload';
 
 const messageKey = 'loading';
 
@@ -15,7 +16,7 @@ const MarkDown = () => {
     modalVisible: false,
     fileName: '',
   });
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -26,22 +27,23 @@ const MarkDown = () => {
     setExportFileStatus({ ...exportFileStatus, modalVisible: !exportFileStatus.modalVisible });
   };
 
-  const handleInputValue = (e) => {
+  const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleInputFileName = (e) => {
+  const handleInputFileName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setExportFileStatus({ ...exportFileStatus, fileName: e.target.value });
   };
 
-  const handleUploadFile = ({ file }) => {
+  const handleUploadFile = (e: UploadChangeParam) => {
+    const { file } = e;
     setIsLoading(true);
     message.loading({ content: '导入中.....', key: messageKey, duration: 0 });
     if (file.status === 'done') {
       const timer = setTimeout(() => {
         const fileReader = new FileReader();
-        fileReader.readAsText(file.originFileObj);
-        fileReader.onload = ({ target }) => {
+        fileReader.readAsText(e.file.originFileObj);
+        fileReader.onload = ({ target }: { target: any }) => {
           setInputValue(target.result);
           setIsLoading(false);
           message.success({ content: `${file.name} 导入成功`, key: messageKey, duration: 2 });

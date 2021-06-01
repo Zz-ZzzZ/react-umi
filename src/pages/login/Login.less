@@ -6,11 +6,10 @@
   justify-content: center;
   align-items: center;
 
-
   &Bg {
     width: 100%;
     height: 100%;
-    background: #f0f2f5 url("~@/assets/bg.svg");
+    background: #f0f2f5 url('~@/assets/bg.svg');
     background-size: 100% 100%;
     position: absolute;
     top: 0;
@@ -25,7 +24,6 @@
       width: 100px;
       height: 100px;
       animation: rotateLogo 10s linear infinite;
-
     }
     @keyframes rotateLogo {
       0% {
@@ -40,14 +38,13 @@
   &Form {
     width: 350px;
 
-    &Forgot{
+    &Forgot {
       display: flex;
       justify-content: space-between;
     }
 
-    :global .ant-input-prefix{
+    :global .ant-input-prefix {
       margin-right: 10px;
     }
   }
 }
-

@@ -4,6 +4,7 @@ import { history, connect } from 'umi';
 import { useState, useMemo } from 'react';
 import logo from '@/assets/logo.png';
 import style from './MenuBar.less';
+import { FC } from 'react';
 
 const menuList = [
   {
@@ -26,7 +27,11 @@ const menuList = [
   },
 ];
 
-const MenuBar = ({ state }) => {
+interface IMenuBar {
+  isShowDetailMenu: boolean;
+}
+
+const MenuBar = ({ state }: { state: IMenuBar }) => {
   // 菜单收缩控制
   const { isShowDetailMenu } = state;
   const [routePath, setRoutePath] = useState(history.location.pathname);
@@ -38,7 +43,8 @@ const MenuBar = ({ state }) => {
   });
 
   // 点击为当前项不做跳转
-  const handleClickGoMenuItem = (index) => {
+  const handleClickGoMenuItem = (key: number | string) => {
+    const index = Number(key) - 1;
     if (menuList[index].path !== history.location.pathname) {
       history.push(menuList[index].path);
     }
@@ -52,17 +58,17 @@ const MenuBar = ({ state }) => {
   return (
     <div className={style.menu}>
       <div className={style.menuLogo} style={{ width: isShowDetailMenu ? '200px' : '80px' }}>
-        <img src={logo} alt={{}} />
+        <img src={logo} alt={''} />
         {isShowDetailMenu && <span>React Admin</span>}
       </div>
       <Menu
         theme="dark"
         mode="inline"
         className={style.menuBlock}
-        style={{ width: isShowDetailMenu && '200px' }}
+        style={{ width: isShowDetailMenu ? '200px' : '' }}
         selectedKeys={[getMenuKey]}
         inlineCollapsed={!isShowDetailMenu}
-        onClick={({ item }) => handleClickGoMenuItem(item.props.index)}
+        onClick={({ key }) => handleClickGoMenuItem(key)}
       >
         {menuList.map((item) => (
           <Menu.Item key={item.key}>
@@ -74,4 +80,4 @@ const MenuBar = ({ state }) => {
     </div>
   );
 };
-export default connect((state) => ({ state }))(MenuBar);
+export default connect((state: IMenuBar) => ({ state }))(MenuBar);

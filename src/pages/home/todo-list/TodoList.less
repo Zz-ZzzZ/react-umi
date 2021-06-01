@@ -1,32 +1,32 @@
-.listItem{
+.listItem {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f0f0f0;
-  margin-bottom: 12px ;
+  margin-bottom: 12px;
   padding-bottom: 12px;
   line-height: 24px;
 
-  &No{
-    color:@number-color_gray;
+  &No {
+    color: @number-color_gray;
     flex-shrink: 0;
   }
 
-  &Job{
+  &Job {
     font-weight: 500;
-    flex:1;
+    flex: 1;
   }
 
-  &JobSuccess{
+  &JobSuccess {
     color: @title-color_gray;
-    text-decoration:line-through ;
+    text-decoration: line-through;
     transition: all 1s linear;
   }
 
-  *{
+  * {
     margin-right: 5px;
   }
 
-  :last-child{
+  :last-child {
     margin: 0;
   }
 }

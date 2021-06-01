@@ -1,5 +1,5 @@
 import { Drawer, Form, Input, Cascader, Button, message } from 'antd';
-import { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
+import { useState, forwardRef, useImperativeHandle, FC, ForwardedRef } from 'react';
 import axios from 'axios';
 import AntdSpinCustom from '@/base/spin/Spin';
 
@@ -32,21 +32,25 @@ const options = [
   },
 ];
 
-const UserDrawer = forwardRef(({ handleChangeUserSuccess }, ref) => {
+interface IUserDrawer {
+  handleChangeUserSuccess: Function;
+  ref: ForwardedRef<any>;
+}
+const UserDrawer: FC<IUserDrawer> = forwardRef(({ handleChangeUserSuccess }, ref) => {
   const [isShowDrawer, setIsShowDrawer] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [form] = Form.useForm();
 
   useImperativeHandle(ref, () => ({
-    showDrawer: (userInfo) => {
+    showDrawer: (userInfo: object) => {
       form.setFieldsValue(userInfo);
       setIsShowDrawer(true);
       setUserInfo(userInfo);
     },
   }));
 
-  const handleFormSubmit = async (value) => {
+  const handleFormSubmit = async (value: string) => {
     setLoading(true);
     // 简单比较数据有无更改
     if (JSON.stringify(value) !== JSON.stringify(userInfo)) {

@@ -1,7 +1,6 @@
 import style from './NavBar.less';
-import logo from '@/assets/logo.png';
-import { history, connect } from 'umi';
-import { useRef, useEffect, useState } from 'react';
+import { history, connect, Dispatch } from 'umi';
+import { useRef, useEffect, useState, FC } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -17,9 +16,18 @@ import userAvatar from '../../../public/favicon.ico';
 
 const { confirm } = Modal;
 
-const NavBar = ({ state, dispatch }) => {
-  const [userInfo, setUserInfo] = useState({});
-  const userDrawer = useRef(null);
+interface INavBar {
+  isShowDetailMenu: boolean;
+  userInfo: {
+    username: string;
+  };
+}
+
+const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => {
+  const [userInfo, setUserInfo] = useState<{
+    name: string;
+  }>({ name: '' });
+  const userDrawer = useRef<any>(null);
   const {
     isShowDetailMenu,
     userInfo: { username },
@@ -55,7 +63,7 @@ const NavBar = ({ state, dispatch }) => {
     });
   };
 
-  const handleClickMenu = ({ key }) => {
+  const handleClickMenu = (key: string | number) => {
     switch (key) {
       case '0':
         userDrawer.current.showDrawer(userInfo);
@@ -67,7 +75,7 @@ const NavBar = ({ state, dispatch }) => {
   };
 
   const menu = (
-    <Menu onClick={handleClickMenu}>
+    <Menu onClick={({ key }) => handleClickMenu(key)}>
       <Menu.Item key="0">
         <span>设置</span>
       </Menu.Item>
@@ -102,4 +110,4 @@ const NavBar = ({ state, dispatch }) => {
   );
 };
 
-export default connect((state) => ({ state }))(NavBar);
+export default connect((state: INavBar) => ({ state }))(NavBar);

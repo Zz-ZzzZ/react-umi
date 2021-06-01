@@ -7,7 +7,7 @@ import TodoList from '@/pages/home/todo-list/TodoList';
 import ControlChart from '@/pages/home/control-chart/ControlChart';
 import LineAdvanceChart from '@/pages/home/line-advance-chart/LineAdvanceChart';
 
-const controlPanelStatic = [
+const controlPanelStatic: Array<any> = [
   {
     id: 1,
     icon: <CloudTwoTone />,
@@ -35,8 +35,8 @@ const controlPanelStatic = [
 ];
 
 const Home = () => {
-  const [controlPanel, setControlPanel] = useState([]);
-  const [toDoList, setToDoList] = useState([]);
+  const [controlPanel, setControlPanel] = useState<Array<any>>([]);
+  const [toDoList, setToDoList] = useState<Array<any>>([]);
   const lineRef = useRef(null);
 
   const getControlPanel = async () => {
@@ -60,15 +60,15 @@ const Home = () => {
   };
 
   // 跳过就删除此项
-  const handleClickPassItem = (id) => {
-    const list = toDoList.filter((item) => item.id !== id);
+  const handleClickPassItem = (id: number): void => {
+    const list = toDoList.filter((item: any) => item.id !== id);
     setToDoList(list);
   };
 
   // 完成某一项打一个标识
-  const handleClickSuccessItem = (id) => {
-    const list = [...toDoList];
-    const index = list.findIndex((item) => item.id === id);
+  const handleClickSuccessItem = (id: number): void => {
+    const list = [...toDoList] as Array<any>;
+    const index = list.findIndex((item: any) => item.id === id);
     if (id !== -1) {
       list[index]['isSuccess'] = true;
     }

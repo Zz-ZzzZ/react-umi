@@ -1,9 +1,10 @@
-const getUserInfoFromStorage = (key) => {
-  const user = JSON.parse(sessionStorage.getItem('userInfo'));
+const getUserInfoFromStorage = (key: string) => {
+  const user = JSON.parse(<string>sessionStorage.getItem('userInfo'));
   return user ? user[key] : '';
 };
 
-const setUserInfoToStorage = (value) => sessionStorage.setItem('userInfo', JSON.stringify(value));
+const setUserInfoToStorage = (value: string) =>
+  sessionStorage.setItem('userInfo', JSON.stringify(value));
 
 const initState = {
   username: getUserInfoFromStorage('username'),
@@ -18,14 +19,14 @@ export default {
   // 深拷贝一份用作清除登录数据
   state: { ...initState },
   reducers: {
-    setUserInfo: (state, { payload }) => {
+    setUserInfo: (state: any, { payload }: any) => {
       const { name, tel, address } = payload;
       const value = { ...state, name, tel, address };
       setUserInfoToStorage(value);
       return value;
     },
     // 储存登录账号/密码
-    login: (state, { payload }) => {
+    login: (state: any, { payload }: any) => {
       const { username, password } = payload;
       const value = { ...state, username, password };
       setUserInfoToStorage(value);
