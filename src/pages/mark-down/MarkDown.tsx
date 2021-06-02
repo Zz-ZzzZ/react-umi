@@ -16,10 +16,12 @@ const MarkDown = () => {
     modalVisible: false,
     fileName: '',
   });
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
     return () => {};
   }, []);
 

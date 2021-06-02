@@ -11,6 +11,7 @@ import {
 import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
 import Tmer from '@/base/timer/timer';
 import UserDrawer from '@/layout/nav-bar/user-drawer/UserDrawer';
+import { IUserDrawerRef } from '@/layout/nav-bar/user-drawer/UserDrawer';
 import axios from 'axios';
 import userAvatar from '../../../public/favicon.ico';
 
@@ -27,7 +28,7 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   const [userInfo, setUserInfo] = useState<{
     name: string;
   }>({ name: '' });
-  const userDrawer = useRef<any>(null);
+  const userDrawer = useRef<IUserDrawerRef>(null);
   const {
     isShowDetailMenu,
     userInfo: { username },
@@ -66,7 +67,9 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   const handleClickMenu = (key: string | number) => {
     switch (key) {
       case '0':
-        userDrawer.current.showDrawer(userInfo);
+        if (userDrawer.current) {
+          userDrawer.current.showDrawer(userInfo);
+        }
         return;
       case '1':
         showExitLoginConfirm();

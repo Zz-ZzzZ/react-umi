@@ -1,11 +1,12 @@
 import { Table, Input, Select, Button, Space, Modal, message, Card } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import style from './Table.less';
 import axios from 'axios';
 import { FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from '@/utils/utils';
 import XLSX from 'xlsx';
 import RowDrawer from '@/pages/table/row-drawer/RowDrawer';
+import { IRowDrawerRef } from '@/pages/table/row-drawer/RowDrawer';
 import AntdSpinCustom from '@/base/spin/Spin';
 
 const { Column } = Table;
@@ -17,7 +18,7 @@ const TableExample = () => {
   const [tableData, setTableData] = useState<Array<any>>([]);
   const [condition, setCondition] = useState('city');
   const [isLoading, setLoading] = useState(false);
-  const rowDrawer = useRef<any>(null);
+  const rowDrawer = useRef<IRowDrawerRef>(null);
 
   const getTableData = async () => {
     setLoading(true);
@@ -90,7 +91,7 @@ const TableExample = () => {
             <Input
               placeholder="输入关键词"
               addonBefore={selectSearchElement}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
             />
           </div>
           <Button
@@ -121,7 +122,10 @@ const TableExample = () => {
               width={200}
               render={(text, record: { id: number; name: string }) => (
                 <Space size="middle">
-                  <Button size="small" onClick={() => rowDrawer.current.showRowDrawer(record)}>
+                  <Button
+                    size="small"
+                    onClick={() => rowDrawer.current && rowDrawer.current.showRowDrawer(record)}
+                  >
                     修改
                   </Button>
                   <Button
