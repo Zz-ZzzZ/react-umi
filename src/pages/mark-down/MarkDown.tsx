@@ -4,7 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
 import style from './MarkDown.less';
-import { downLoadFileByBlob } from '@/utils/utils';
+import { debounce, downLoadFileByBlob } from '@/utils/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { TextAreaRef } from 'antd/lib/input/TextArea';
 
@@ -40,7 +40,7 @@ const MarkDown = () => {
     setInputValue(e.target.value);
   };
 
-  const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement | HTMLTextAreaElement>) => {
     e.persist();
     const target = e.target as HTMLElement;
     // 获取鼠标下落位置 若小于左侧宽度则代表鼠标当前停留在左侧容器内
@@ -114,11 +114,7 @@ const MarkDown = () => {
             </Button>
           </Space>
         </div>
-        <div
-          className={style.container}
-          onScroll={handleTextAreaScroll}
-          onMouseOver={handleMouseOver}
-        >
+        <div className={style.container} onScroll={handleTextAreaScroll}>
           <div className={style.containerLeft}>
             <Input.TextArea
               placeholder="请在此输入MarkDown语法，右侧即可预览"
@@ -126,10 +122,11 @@ const MarkDown = () => {
               value={inputValue}
               onChange={handleTextAreaValue}
               ref={textAreaRef}
+              onMouseEnter={handleMouseEnter}
             />
           </div>
           <ArrowRightOutlined style={{ fontSize: '20px' }} />
-          <div className={style.containerRight} ref={markDownRef}>
+          <div className={style.containerRight} ref={markDownRef} onMouseEnter={handleMouseEnter}>
             <ReactMarkdown rehypePlugins={[rehypeRaw]} children={inputValue} />
           </div>
         </div>
