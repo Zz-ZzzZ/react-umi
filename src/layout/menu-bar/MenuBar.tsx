@@ -1,31 +1,9 @@
 import { Menu } from 'antd';
-import { BankOutlined, TableOutlined, FileMarkdownOutlined } from '@ant-design/icons';
 import { history, connect } from 'umi';
 import { useState, useMemo } from 'react';
 import logo from '@/assets/logo.png';
 import style from './MenuBar.less';
-import { FC } from 'react';
-
-const menuList = [
-  {
-    key: '1',
-    icon: <BankOutlined style={{ fontSize: '16px' }} />,
-    name: '总览',
-    path: '/',
-  },
-  {
-    key: '2',
-    icon: <TableOutlined style={{ fontSize: '16px' }} />,
-    name: '表格',
-    path: '/table',
-  },
-  {
-    key: '3',
-    icon: <FileMarkdownOutlined style={{ fontSize: '16px' }} />,
-    name: 'MarkDown',
-    path: '/mark-down',
-  },
-];
+import menuList from './MenuList';
 
 interface IMenuBar {
   isShowDetailMenu: boolean;

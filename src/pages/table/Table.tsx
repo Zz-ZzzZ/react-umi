@@ -5,8 +5,7 @@ import axios from 'axios';
 import { FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from '@/utils/utils';
 import XLSX from 'xlsx';
-import RowDrawer from '@/pages/table/row-drawer/RowDrawer';
-import { IRowDrawerRef } from '@/pages/table/row-drawer/RowDrawer';
+import RowDrawer, { IRowDrawerRef } from '@/pages/table/row-drawer/RowDrawer';
 import AntdSpinCustom from '@/base/spin/Spin';
 
 const { Column } = Table;

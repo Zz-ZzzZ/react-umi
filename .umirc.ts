@@ -5,6 +5,7 @@ import style from './src/global-var';
 export default {
   title: 'React Admin',
   favicon: '/favicon.ico',
+  fastRefresh: {},
   history: { type: 'hash' },
   routes: router,
   theme: style,

@@ -1,17 +1,14 @@
 import style from './NavBar.less';
 import { history, connect, Dispatch } from 'umi';
-import { useRef, useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
   DownOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
-import Tmer from '@/base/timer/timer';
-import UserDrawer from '@/layout/nav-bar/user-drawer/UserDrawer';
-import { IUserDrawerRef } from '@/layout/nav-bar/user-drawer/UserDrawer';
+import Timer from '@/base/timer/timer';
 import axios from 'axios';
 import userAvatar from '../../../public/favicon.ico';
 
@@ -28,7 +25,6 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   const [userInfo, setUserInfo] = useState<{
     name: string;
   }>({ name: '' });
-  const userDrawer = useRef<IUserDrawerRef>(null);
   const {
     isShowDetailMenu,
     userInfo: { username },
@@ -67,9 +63,7 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   const handleClickMenu = (key: string | number) => {
     switch (key) {
       case '0':
-        if (userDrawer.current) {
-          userDrawer.current.showDrawer(userInfo);
-        }
+        history.push('/person');
         return;
       case '1':
         showExitLoginConfirm();
@@ -80,10 +74,10 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   const menu = (
     <Menu onClick={({ key }) => handleClickMenu(key)}>
       <Menu.Item key="0">
-        <span>设置</span>
+        <span>个人设置</span>
       </Menu.Item>
       <Menu.Item key="1">
-        <span>退出</span>
+        <span>退出登录</span>
       </Menu.Item>
     </Menu>
   );
@@ -98,7 +92,7 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
       </div>
       <div className={style.navRight}>
         <div className={style.navRightTimer}>
-          <Tmer />
+          <Timer />
         </div>
         <Dropdown overlay={menu} trigger={['click']}>
           <div className={style.navRightUser}>
@@ -108,7 +102,6 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
           </div>
         </Dropdown>
       </div>
-      <UserDrawer ref={userDrawer} handleChangeUserSuccess={getUserInfo} />
     </div>
   );
 };

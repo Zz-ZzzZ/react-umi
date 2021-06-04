@@ -24,6 +24,11 @@ export default [
         path: '/mark-down',
         component: '@/pages/mark-down/MarkDown',
       },
+      {
+        exact: true,
+        path: '/person',
+        component: '@/pages/person/Person',
+      },
     ],
   },
 ];

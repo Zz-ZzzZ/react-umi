@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
@@ -6,8 +6,11 @@ import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
 import style from './MarkDown.less';
 import { downLoadFileByBlob } from '@/utils/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
+import { TextAreaRef } from 'antd/lib/input/TextArea';
 
 const messageKey = 'loading';
+let leftAreaWidth = 0;
+let mouseOverArea = '';
 
 const MarkDown = () => {
   const [inputValue, setInputValue] = useState('# Hello');
@@ -16,11 +19,15 @@ const MarkDown = () => {
     modalVisible: false,
     fileName: '',
   });
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<TextAreaRef>(null);
+  const markDownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
+    if (textAreaRef.current && textAreaRef.current.resizableTextArea) {
+      textAreaRef.current.focus();
+      // 获取左侧textArea的宽度
+      const target = textAreaRef.current.resizableTextArea.textArea;
+      leftAreaWidth = target.offsetWidth;
     }
     return () => {};
   }, []);
@@ -29,11 +36,38 @@ const MarkDown = () => {
     setExportFileStatus({ ...exportFileStatus, modalVisible: !exportFileStatus.modalVisible });
   };
 
-  const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleInputFileName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.persist();
+    const target = e.target as HTMLElement;
+    // 获取鼠标下落位置 若小于左侧宽度则代表鼠标当前停留在左侧容器内
+    mouseOverArea = target.offsetLeft < leftAreaWidth ? 'left' : 'right';
+  };
+
+  const handleTextAreaScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    e.persist();
+    if (textAreaRef.current && textAreaRef.current.resizableTextArea && markDownRef.current) {
+      const textAreaCurrent = textAreaRef.current.resizableTextArea.textArea;
+      const markDownCurrent = markDownRef.current;
+      // 获取textArea滑动到底部的最大距离
+      const leftScrollTopMax = textAreaCurrent.scrollHeight - textAreaCurrent.clientHeight;
+      const rightScrollTopMax = markDownCurrent.scrollHeight - markDownCurrent.clientHeight;
+      // 获取左右侧最大距离的比例
+      const scrollLeftScale = Number((rightScrollTopMax / leftScrollTopMax).toFixed(3));
+      const scrollRightScale = Number((leftScrollTopMax / rightScrollTopMax).toFixed(3));
+      // 根据鼠标停留的左/右侧区域来使用不同的滚动比例做滚动跟随
+      if (mouseOverArea === 'left') {
+        markDownCurrent.scrollTop = textAreaCurrent.scrollTop * scrollLeftScale;
+      } else {
+        textAreaCurrent.scrollTop = markDownCurrent.scrollTop * scrollRightScale;
+      }
+    }
+  };
+
+  const handleExportFileName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setExportFileStatus({ ...exportFileStatus, fileName: e.target.value });
   };
 
@@ -43,10 +77,13 @@ const MarkDown = () => {
     message.loading({ content: '导入中.....', key: messageKey, duration: 0 });
     if (file.status === 'done') {
       const timer = setTimeout(() => {
-        const fileReader = new FileReader();
+        const fileReader: FileReader = new FileReader();
         fileReader.readAsText(e.file.originFileObj);
-        fileReader.onload = ({ target }: { target: any }) => {
-          setInputValue(target.result);
+        fileReader.onload = ({ target }) => {
+          if (target) {
+            const result = target.result as string;
+            setInputValue(result);
+          }
           setIsLoading(false);
           message.success({ content: `${file.name} 导入成功`, key: messageKey, duration: 2 });
           clearTimeout(timer);
@@ -77,18 +114,22 @@ const MarkDown = () => {
             </Button>
           </Space>
         </div>
-        <div className={style.container}>
+        <div
+          className={style.container}
+          onScroll={handleTextAreaScroll}
+          onMouseOver={handleMouseOver}
+        >
           <div className={style.containerLeft}>
             <Input.TextArea
               placeholder="请在此输入MarkDown语法，右侧即可预览"
               autoSize={true}
               value={inputValue}
-              onChange={handleInputValue}
-              ref={inputRef}
+              onChange={handleTextAreaValue}
+              ref={textAreaRef}
             />
           </div>
           <ArrowRightOutlined style={{ fontSize: '20px' }} />
-          <div className={style.containerRight}>
+          <div className={style.containerRight} ref={markDownRef}>
             <ReactMarkdown rehypePlugins={[rehypeRaw]} children={inputValue} />
           </div>
         </div>
@@ -102,7 +143,7 @@ const MarkDown = () => {
         <Input
           placeholder="输入导出的.md文件名字"
           value={exportFileStatus.fileName}
-          onChange={handleInputFileName}
+          onChange={handleExportFileName}
         />
       </Modal>
     </div>
