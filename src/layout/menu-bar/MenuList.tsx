@@ -21,7 +21,7 @@ const menuList = [
   {
     key: '4',
     icon: <UserOutlined />,
-    name: '个人信息',
+    name: '个人设置',
     path: '/person',
   },
 ];

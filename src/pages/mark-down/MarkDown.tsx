@@ -101,7 +101,7 @@ const MarkDown = () => {
 
   return (
     <div className={style.markDown}>
-      <Card title="MarkDown编辑">
+      <Card size="small" title="MarkDown编辑">
         <div className={style.actionBar}>
           <Space>
             <Upload accept=".md" onChange={handleUploadFile} showUploadList={false} maxCount={1}>

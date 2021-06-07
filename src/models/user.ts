@@ -1,9 +1,22 @@
+export interface IUserInfo {
+  name: string;
+  tel: string;
+  address: string;
+}
+
+export interface ILogin {
+  username: string;
+  password: string;
+}
+
+export interface IUser extends IUserInfo, ILogin {}
+
 const getUserInfoFromStorage = (key: string) => {
   const user = JSON.parse(<string>sessionStorage.getItem('userInfo'));
   return user ? user[key] : '';
 };
 
-const setUserInfoToStorage = (value: string) =>
+const setUserInfoToStorage = (value: IUserInfo | ILogin) =>
   sessionStorage.setItem('userInfo', JSON.stringify(value));
 
 const initState = {
@@ -16,17 +29,17 @@ const initState = {
 
 export default {
   namespace: 'userInfo',
-  // 深拷贝一份用作清除登录数据
+  // 拷贝一份用作清除登录数据
   state: { ...initState },
   reducers: {
-    setUserInfo: (state: any, { payload }: any) => {
+    setUserInfo: (state: IUser, { payload }: { payload: IUserInfo }) => {
       const { name, tel, address } = payload;
       const value = { ...state, name, tel, address };
       setUserInfoToStorage(value);
       return value;
     },
     // 储存登录账号/密码
-    login: (state: any, { payload }: any) => {
+    login: (state: IUser, { payload }: { payload: ILogin }) => {
       const { username, password } = payload;
       const value = { ...state, username, password };
       setUserInfoToStorage(value);

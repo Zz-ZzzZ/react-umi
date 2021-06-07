@@ -84,7 +84,7 @@ const TableExample = () => {
 
   return (
     <div className={style.table}>
-      <Card title="表格数据">
+      <Card size="small" title="表格数据">
         <div className={style.tableAction}>
           <div className={style.tableActionInput}>
             <Input
