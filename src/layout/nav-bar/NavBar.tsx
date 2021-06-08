@@ -22,9 +22,7 @@ interface INavBar {
 }
 
 const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => {
-  const [userInfo, setUserInfo] = useState<{
-    name: string;
-  }>({ name: '' });
+  const [userInfo, setUserInfo] = useState<{ name: string }>({ name: '' });
   const {
     isShowDetailMenu,
     userInfo: { username },
@@ -60,10 +58,12 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
     });
   };
 
-  const handleClickMenu = (key: string | number) => {
+  const handleClickMenu = (key: string) => {
     switch (key) {
       case '0':
-        history.push('/person');
+        if (history.location.pathname !== '/person') {
+          history.push('/person');
+        }
         return;
       case '1':
         showExitLoginConfirm();
@@ -72,7 +72,7 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   };
 
   const menu = (
-    <Menu onClick={({ key }) => handleClickMenu(key)}>
+    <Menu onClick={({ key }) => handleClickMenu(key as string)}>
       <Menu.Item key="0">
         <span>个人设置</span>
       </Menu.Item>

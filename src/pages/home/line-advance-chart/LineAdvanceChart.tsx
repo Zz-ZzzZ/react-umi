@@ -126,19 +126,24 @@ const data = [
   },
 ];
 
+interface ILineAdvanceChart {
+  isShowDetailMenu: boolean;
+}
+
 // antd Card的padding间隔 左12 + 右12
 const cardStylePadding = 12 + 12;
 // menuBar的宽度 最大200 最小20
 const menuBarWidth = 200 - 80;
-const LineAdvanceChart = memo(({ state }: { state: any }) => {
-  const { isShowDetailMenu }: { isShowDetailMenu: boolean } = state;
-  const lineChartRef = useRef(null);
+const LineAdvanceChart = memo(({ state }: { state: ILineAdvanceChart }) => {
+  const { isShowDetailMenu } = state;
+  const lineChartRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     // 获取div的动态宽度
-    // @ts-ignore
-    setWidth(lineChartRef.current.clientWidth - cardStylePadding);
+    if (lineChartRef.current) {
+      setWidth(lineChartRef.current.clientWidth - cardStylePadding);
+    }
     return () => {};
   }, []);
 
@@ -159,4 +164,4 @@ const LineAdvanceChart = memo(({ state }: { state: any }) => {
   );
 });
 
-export default connect((state) => ({ state }))(LineAdvanceChart);
+export default connect((state: ILineAdvanceChart) => ({ state }))(LineAdvanceChart);

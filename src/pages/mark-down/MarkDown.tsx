@@ -4,16 +4,17 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
 import style from './MarkDown.less';
-import { debounce, downLoadFileByBlob } from '@/utils/utils';
+import { downLoadFileByBlob } from '@/utils/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { TextAreaRef } from 'antd/lib/input/TextArea';
+import testMd from '@/pages/mark-down/test-md';
 
 const messageKey = 'loading';
 let leftAreaWidth = 0;
 let mouseOverArea = '';
 
 const MarkDown = () => {
-  const [inputValue, setInputValue] = useState('# Hello');
+  const [inputValue, setInputValue] = useState(testMd);
   const [isLoading, setIsLoading] = useState(false);
   const [exportFileStatus, setExportFileStatus] = useState({
     modalVisible: false,

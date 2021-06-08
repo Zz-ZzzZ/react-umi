@@ -1,4 +1,4 @@
-.person{
+.person {
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -6,44 +6,46 @@
   flex-direction: column;
   background: #f0f2f5;
 
-  &Container{
+  .container {
     width: 100%;
     height: 100%;
+    padding-left: 12px;
+    padding-right: 24px;
+  }
+
+  .betweenItem {
+    margin-top: 24px;
+    padding-bottom: 12px;
     display: flex;
-    padding-left: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
 
-    .containerLeft{
-      width: 40%;
-    }
-
-    .containerRight{
-      margin-left: 10%;
-      display: flex;
-      flex-direction: column;
-
-      img{
-        width: 150px;
-        height: 150px;
-        border-radius: 100% !important;
-        margin-bottom: 20px;
-      }
+    .tipColor {
+      color: rgba(0, 0, 0, .45);
     }
   }
 
-  :global{
-    .ant-tabs{
+  .basicBlock{
+    width: 40%;
+  }
+
+  :global {
+    .ant-tabs {
       height: 100%;
     }
-    .ant-tabs-tab-active{
+
+    .ant-tabs-tab-active {
       background-color: #e6f7ff
     }
-    .ant-tabs-nav{
+
+    .ant-tabs-nav {
       min-width: 200px;
     }
   }
 }
 
-h2{
-  margin-bottom: 24px;
+h2 {
+  margin: 12px 0;
 }
 

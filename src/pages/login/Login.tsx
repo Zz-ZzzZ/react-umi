@@ -1,15 +1,15 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import React, { FC, MouseEvent, useState, useEffect } from 'react';
-import { connect, history } from 'umi';
+import React, { MouseEvent, useState, useEffect } from 'react';
+import { connect, history, Dispatch } from 'umi';
 import style from './Login.less';
 import logo from '@/assets/logo.png';
 import axios from 'axios';
 import AntdSpinCustom from '@/base/spin/Spin';
+import { ILogin } from '@/models/user';
 
-interface ILogin {
-  state: any;
-  dispatch(value: { type: string; payload: object }): void;
+interface ILoginUser {
+  userInfo: ILogin;
 }
 
 const setRememberStatus = (status: boolean): void => {
@@ -18,7 +18,7 @@ const setRememberStatus = (status: boolean): void => {
 
 const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUser') as string);
 
-const Login: FC<ILogin> = ({ state, dispatch }) => {
+const Login = ({ state, dispatch }: { state: ILoginUser; dispatch: Dispatch }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const {
@@ -114,4 +114,4 @@ const Login: FC<ILogin> = ({ state, dispatch }) => {
   );
 };
 
-export default connect((state) => ({ state }))(Login);
+export default connect((state: ILoginUser) => ({ state }))(Login);
