@@ -1,54 +1,12 @@
 import style from '@/pages/person/Person.less';
-import React, { memo, useState, forwardRef, Ref, useImperativeHandle, useRef } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-
-interface IModalContent {
-  getFormValue: Function;
-  clearFormValue: Function;
-}
-
-const ModalContent = forwardRef(
-  ({ modalTitle }: { modalTitle: string }, ref: Ref<IModalContent>) => {
-    const [form] = Form.useForm();
-
-    useImperativeHandle(ref, () => ({
-      getFormValue: () => form.getFieldsValue(),
-      clearFormValue: () => form.resetFields(),
-    }));
-
-    return (
-      <Form form={form} layout="vertical">
-        {modalTitle === '更改账户密码' ? (
-          <>
-            <Form.Item name="oldVal" label="旧密码">
-              <Input placeholder="输入旧密码" />
-            </Form.Item>
-            <Form.Item name="newVal" label="新密码">
-              <Input placeholder="输入新密码" />
-            </Form.Item>
-          </>
-        ) : (
-          <>
-            <Form.Item name="phone" label="手机号">
-              <div style={{ display: 'flex' }}>
-                <Input placeholder="输入手机号" />
-                <Button type="primary">获取验证码</Button>
-              </div>
-            </Form.Item>
-            <Form.Item name="code" label="验证码">
-              <Input placeholder="输入验证码" />
-            </Form.Item>
-          </>
-        )}
-      </Form>
-    );
-  },
-);
+import React, { memo, useState, useRef } from 'react';
+import { Modal } from 'antd';
+import ModalContent, { IModalContentRef } from '@/pages/person/safe/ModalContent';
 
 const Safe = () => {
   const [title, setTitle] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalContentRef = useRef<IModalContent>(null);
+  const modalContentRef = useRef<IModalContentRef>(null);
 
   const handleChangeModalType = (title: string) => {
     setIsModalVisible(true);
