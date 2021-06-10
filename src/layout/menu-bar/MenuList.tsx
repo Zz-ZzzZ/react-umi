@@ -1,4 +1,10 @@
-import { BankOutlined, FileMarkdownOutlined, TableOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  BankOutlined,
+  FileMarkdownOutlined,
+  TableOutlined,
+  UserOutlined,
+  NumberOutlined,
+} from '@ant-design/icons';
 const menuList = [
   {
     key: '1',
@@ -23,6 +29,12 @@ const menuList = [
     icon: <UserOutlined />,
     name: '个人设置',
     path: '/person',
+  },
+  {
+    key: '5',
+    icon: <NumberOutlined />,
+    name: '图片裁剪',
+    path: '/image-cropping',
   },
 ];
 

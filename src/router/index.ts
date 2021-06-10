@@ -29,6 +29,11 @@ export default [
         path: '/person',
         component: '@/pages/person/Person',
       },
+      {
+        exact: true,
+        path: '/image-cropping',
+        component: '@/pages/image-cropping/ImageCropping',
+      },
     ],
   },
 ];

@@ -82,7 +82,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={style.main}>
+    <div className={`container`}>
       <ControlPanel panelList={controlPanel} />
       <div className={style.lineBlock} ref={lineRef}>
         <LineAdvanceChart />

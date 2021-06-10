@@ -101,7 +101,7 @@ const MarkDown = () => {
   };
 
   return (
-    <div className={style.markDown}>
+    <div className={`container ${style.markDown}`}>
       <Card size="small" title="MarkDown编辑">
         <div className={style.actionBar}>
           <Space>

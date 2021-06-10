@@ -24,23 +24,23 @@ const Person = ({ state }: { state: IPerson }) => {
   }, []);
 
   return (
-    <div className={style.person}>
+    <div className={`container ${style.person}`}>
       <Card size="small" title="个人设置">
         <Tabs tabPosition="left">
           <TabPane tab="基本设置" key="1">
-            <div className={style.container}>
+            <div className={style.tabContent}>
               <h2>基本设置</h2>
               <Basic form={form} />
             </div>
           </TabPane>
           <TabPane tab="安全设置" key="2">
-            <div className={style.container}>
+            <div className={style.tabContent}>
               <h2>安全设置</h2>
               <Safe />
             </div>
           </TabPane>
           <TabPane tab="通知设置" key="3">
-            <div className={style.container}>
+            <div className={style.tabContent}>
               <h2>通知设置</h2>
               <Notice />
             </div>
