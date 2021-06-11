@@ -5,6 +5,7 @@
 ### 项目由umi脚手架构建
 ### 所用到的技术以及生态:
 * React Hooks 
+* Typescript
 * Antd react(ui库)
 * umi.js(企业级应用框架)
 * dva.js(状态管理)
