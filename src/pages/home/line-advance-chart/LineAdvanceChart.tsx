@@ -149,7 +149,7 @@ const LineAdvanceChart = memo(({ state }: { state: ILineAdvanceChart }) => {
 
   return (
     <div ref={lineChartRef} style={{ width: '100%' }}>
-      <Card title="折线图" style={{ width: '100%' }} size="small">
+      <Card title="折线图">
         <Chart
           padding={[10, 20, 50, 40]}
           // 切换menu的同时重新渲染图表

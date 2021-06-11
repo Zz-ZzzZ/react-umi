@@ -34,7 +34,7 @@ const menuList = [
     key: '5',
     icon: <NumberOutlined />,
     name: '图片裁剪',
-    path: '/image-cropping',
+    path: '/image-crop',
   },
 ];
 

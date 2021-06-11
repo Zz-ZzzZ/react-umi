@@ -25,7 +25,7 @@ const Person = ({ state }: { state: IPerson }) => {
 
   return (
     <div className={`container ${style.person}`}>
-      <Card size="small" title="个人设置">
+      <Card title="个人设置">
         <Tabs tabPosition="left">
           <TabPane tab="基本设置" key="1">
             <div className={style.tabContent}>

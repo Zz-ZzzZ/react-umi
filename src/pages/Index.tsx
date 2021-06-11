@@ -4,13 +4,11 @@ import Progress from '@/base/progress/progress';
 import style from './Index.less';
 import { withRouter } from 'umi';
 import React, { ReactElement } from 'react';
-// @ts-ignore
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Index = withRouter(({ children, location, history }) => {
   return (
     <div className={style.main}>
-      <Progress location={location.pathname} />
       <div className={style.mainLeft}>
         <MenuBar />
       </div>
@@ -31,6 +29,7 @@ const Index = withRouter(({ children, location, history }) => {
           </TransitionGroup>
         </div>
       </div>
+      <Progress location={location.pathname} />
     </div>
   );
 });

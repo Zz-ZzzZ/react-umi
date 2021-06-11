@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
 import ControlPanel from '@/pages/home/control-panel/ControlPanel';
-import TodoList from '@/pages/home/todo-list/TodoList';
+import LabelLine from '@/pages/home/label-line/LabelLine';
 import ControlChart from '@/pages/home/control-chart/ControlChart';
 import LineAdvanceChart from '@/pages/home/line-advance-chart/LineAdvanceChart';
 
@@ -13,24 +13,32 @@ const controlPanelStatic: Array<any> = [
     icon: <CloudTwoTone />,
     label: '访问人数',
     key: 'visitation',
+    tagColor: 'volcano',
+    tagText: '年',
   },
   {
     id: 2,
     icon: <SoundTwoTone twoToneColor={'#36cfc9'} />,
     label: '通知',
     key: 'notification',
+    tagColor: 'gold',
+    tagText: '日',
   },
   {
     id: 3,
     icon: <StarTwoTone twoToneColor={'#ff4d4f'} />,
     label: '收藏',
     key: 'collect',
+    tagColor: 'cyan',
+    tagText: '月',
   },
   {
     id: 4,
     icon: <FireTwoTone twoToneColor={'#faad14'} />,
     label: '活跃',
     key: 'active',
+    tagColor: 'geekblue',
+    tagText: '日',
   },
 ];
 
@@ -82,7 +90,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={`container`}>
+    <div className={`container ${style.home}`}>
       <ControlPanel panelList={controlPanel} />
       <div className={style.lineBlock} ref={lineRef}>
         <LineAdvanceChart />
@@ -92,11 +100,7 @@ const Home = () => {
           <ControlChart chartData={controlPanel} />
         </div>
         <div className={style.toDo}>
-          <TodoList
-            toDoList={toDoList}
-            handleClickPassItem={handleClickPassItem}
-            handleClickSuccessItem={handleClickSuccessItem}
-          />
+          <LabelLine />
         </div>
       </div>
     </div>

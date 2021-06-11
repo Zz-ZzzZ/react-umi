@@ -84,7 +84,7 @@ const TableExample = () => {
 
   return (
     <div className={`container`}>
-      <Card size="small" title="表格数据">
+      <Card title="表格示例">
         <div className={style.tableAction}>
           <div className={style.tableActionInput}>
             <Input
