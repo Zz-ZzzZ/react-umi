@@ -4,7 +4,7 @@ import React, { MouseEvent, useState, useEffect } from 'react';
 import { connect, history, Dispatch } from 'umi';
 import style from './Login.less';
 import logo from '@/assets/logo.png';
-import axios from 'axios';
+import { login } from '@/api/user';
 import AntdSpinCustom from '@/base/spin/Spin';
 import { ILogin } from '@/models/user';
 
@@ -50,15 +50,15 @@ const Login = ({ state, dispatch }: { state: ILoginUser; dispatch: Dispatch }) =
     remember: boolean;
   }) => {
     setLoading(true);
-    const { data } = await axios.post('/api/login', { username, password });
-    if (data.result) {
-      message.success('登录成功');
+    const { data } = await login(username, password);
+    if (data.status) {
+      message.success(data.message);
       dispatch({ type: 'userInfo/login', payload: { username, password } });
       // 保存此次登录时是否需要保存账号信息
       setRememberStatus(remember);
       history.replace('/');
     } else {
-      message.error('登录失败，请检查用户名或密码是否正确');
+      message.error(data.message);
     }
     setLoading(false);
   };

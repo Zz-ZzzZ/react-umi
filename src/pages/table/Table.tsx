@@ -1,7 +1,7 @@
 import { Table, Input, Select, Button, Space, Modal, message, Card } from 'antd';
 import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import style from './Table.less';
-import axios from 'axios';
+import { delTableRowById, getTable } from '@/api/table';
 import { FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from '@/utils/utils';
 import XLSX from 'xlsx';
@@ -21,8 +21,9 @@ const TableExample = () => {
 
   const getTableData = async () => {
     setLoading(true);
-    const { data } = await axios.get('/api/getTable');
-    if (data.result) {
+    const { data } = await getTable();
+    console.log(data);
+    if (data.list && data.list.length > 0) {
       setTableData(data.list);
       tableDataCopy = [...data.list];
     }
@@ -58,14 +59,11 @@ const TableExample = () => {
       icon: <ExclamationCircleOutlined />,
       content: `确定删除 ${name} ?`,
       onOk: async () => {
-        const { data } = await axios.post('/api/delTableRowById', { id });
-        if (data.result) {
+        const { data } = await delTableRowById(id);
+        if (data.status) {
           message.success('删除成功');
           getTableData();
         }
-      },
-      onCancel() {
-        console.log('Cancel');
       },
     });
   };

@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
 import Timer from '@/base/timer/timer';
-import axios from 'axios';
+import { getUser } from '@/api/user';
 import userAvatar from '../../../public/favicon.ico';
 
 const { confirm } = Modal;
@@ -23,13 +23,10 @@ interface INavBar {
 
 const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => {
   const [userInfo, setUserInfo] = useState<{ name: string }>({ name: '' });
-  const {
-    isShowDetailMenu,
-    userInfo: { username },
-  } = state;
+  const { isShowDetailMenu } = state;
 
   const getUserInfo = async () => {
-    const { data } = await axios.get('/api/getUser');
+    const { data } = await getUser();
     setUserInfo(data);
     dispatch({ type: 'userInfo/setUserInfo', payload: data });
   };
@@ -44,16 +41,13 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
       title: '退出登录',
       icon: <ExclamationCircleOutlined />,
       content: '确定要退出登录吗',
-      async onOk() {
-        const { data } = await axios.post('/api/exitLogin', { username });
-        if (data.result) {
-          await dispatch({ type: 'userInfo/clearUserInfo' });
-          notification.success({
-            message: '通知',
-            description: '已成功退出当前用户',
-          });
-          history.replace('/login');
-        }
+      onOk() {
+        dispatch({ type: 'userInfo/clearUserInfo' });
+        notification.success({
+          message: '通知',
+          description: '已成功退出当前用户',
+        });
+        history.replace('/login');
       },
     });
   };

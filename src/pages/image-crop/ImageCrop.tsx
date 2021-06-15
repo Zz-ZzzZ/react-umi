@@ -11,10 +11,6 @@ const ImageCrop = () => {
   const [cropInstance, setCropInstance] = useState<any>(null);
   const [cropData, setCropData] = useState('');
 
-  const handleToggleMode = (e: boolean) => {
-    setDisplayMode(e);
-  };
-
   const handleCroppingImage = () => {
     if (cropInstance) {
       const croppedCanvas = cropInstance.getCroppedCanvas();
@@ -45,7 +41,7 @@ const ImageCrop = () => {
             checkedChildren="矩形"
             unCheckedChildren="圆形"
             defaultChecked
-            onChange={handleToggleMode}
+            onChange={(e) => setDisplayMode(e)}
           />
         }
       >

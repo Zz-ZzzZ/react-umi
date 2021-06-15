@@ -1,6 +1,6 @@
 import { Button, Drawer, Form, Input, message } from 'antd';
 import React, { FC, forwardRef, useImperativeHandle, useState, memo, Ref } from 'react';
-import axios from 'axios';
+import { updateRowById } from '@/api/table';
 
 export interface IRowDrawerRef {
   showRowDrawer: (record: { id: number; name: string; email?: string; city?: string }) => void;
@@ -27,8 +27,8 @@ const RowDrawer: FC<IRowDrawer> = forwardRef(({ handleChangeUserSuccess }, ref) 
   }));
 
   const handleFormSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { data } = await axios.post('/api/updateTableRowById', { ...e, id });
-    if (data.result) {
+    const { data } = await updateRowById({ ...e, rowId: id });
+    if (data.status) {
       message.success('修改成功');
       handleChangeUserSuccess();
       setVisible(false);
