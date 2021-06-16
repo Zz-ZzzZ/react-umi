@@ -1,7 +1,7 @@
 import { Chart, Interval, Tooltip, Axis, Coordinate } from 'bizcharts';
 import { Card } from 'antd';
 
-const LabelLine = () => {
+const LabelLineChart = () => {
   const data = [
     { type: '分类一', value: 27 },
     { type: '分类二', value: 25 },
@@ -12,7 +12,7 @@ const LabelLine = () => {
   ];
 
   return (
-    <Card title="玫瑰图">
+    <Card title="玫瑰图" size="small">
       <Chart height={400} data={data} autoFit>
         <Coordinate
           type="polar"
@@ -54,4 +54,4 @@ const LabelLine = () => {
   );
 };
 
-export default LabelLine;
+export default LabelLineChart;

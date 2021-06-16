@@ -4,7 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
 import style from './MarkDown.less';
-import { downLoadFileByBlob } from '@/utils/utils';
+import { downLoadFile } from '@/utils/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { TextAreaRef } from 'antd/lib/input/TextArea';
 import testMd from '@/pages/mark-down/test-md';
@@ -96,7 +96,7 @@ const MarkDown = () => {
   const handleExportFile = () => {
     const { fileName } = exportFileStatus;
     if (!fileName) return message.warn('请输入文件名称');
-    downLoadFileByBlob(new Blob([inputValue]), `${fileName}.md`);
+    downLoadFile(new Blob([inputValue]), `${fileName}.md`);
     toggleModalVisible();
   };
 

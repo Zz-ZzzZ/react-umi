@@ -1,34 +1,45 @@
 import { memo, useState } from 'react';
-import { Card, Switch, Button } from 'antd';
+import { Card, Switch, Button, message } from 'antd';
 import { Cropper } from 'react-cropper';
 import imageExample from '@/assets/logo.png';
 import 'cropperjs/dist/cropper.css';
 import style from './ImageCrop.less';
+import { downLoadFileByFetch } from '@/utils/utils';
 
 const ImageCrop = () => {
   // true => 矩形
   const [displayMode, setDisplayMode] = useState(true);
   const [cropInstance, setCropInstance] = useState<any>(null);
-  const [cropData, setCropData] = useState('');
+  const [cropLoading, setCropLoading] = useState(false);
 
   const handleCroppingImage = () => {
     if (cropInstance) {
-      const croppedCanvas = cropInstance.getCroppedCanvas();
-      const outPutFileType = 'image/png';
-      if (displayMode) return setCropData(croppedCanvas.toDataURL(outPutFileType));
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      const width = croppedCanvas.width;
-      const height = croppedCanvas.height;
-      canvas.width = width;
-      canvas.height = height;
-      if (context) {
-        context.drawImage(croppedCanvas, 0, 0, width, height);
-        context.globalCompositeOperation = 'destination-in';
-        context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
-        context.fill();
-        return setCropData(canvas.toDataURL(outPutFileType));
-      }
+      setCropLoading(true);
+      const timer = setTimeout(() => {
+        let imgUrl = null;
+        const croppedCanvas = cropInstance.getCroppedCanvas();
+        const outPutFileType = 'image/png';
+        if (displayMode) {
+          imgUrl = croppedCanvas.toDataURL(outPutFileType);
+        } else {
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          const width = croppedCanvas.width;
+          const height = croppedCanvas.height;
+          canvas.width = width;
+          canvas.height = height;
+          if (context) {
+            context.drawImage(croppedCanvas, 0, 0, width, height);
+            context.globalCompositeOperation = 'destination-in';
+            context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+            context.fill();
+            imgUrl = canvas.toDataURL(outPutFileType);
+          }
+        }
+        downLoadFileByFetch(imgUrl, 'crop.png');
+        message.success('裁剪完成');
+        setCropLoading(false);
+      }, 1000);
     }
   };
 
@@ -68,11 +79,10 @@ const ImageCrop = () => {
           </div>
         </div>
         <div className={style.cropBtn}>
-          <Button type="primary" onClick={handleCroppingImage}>
-            裁剪
+          <Button type="primary" onClick={handleCroppingImage} loading={cropLoading}>
+            裁剪并下载
           </Button>
         </div>
-        <img src={cropData} style={{ width: '200px', height: '200px' }} />
       </Card>
     </div>
   );

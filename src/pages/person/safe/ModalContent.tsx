@@ -25,8 +25,13 @@ const PhoneCodeButton = () => {
   };
 
   return (
-    <Button type="primary" onClick={handleGetCode} style={{ width: '150px' }}>
-      {count !== CODE_TEXT ? `${count}s` : count}
+    <Button
+      type="primary"
+      onClick={handleGetCode}
+      style={{ width: '150px' }}
+      disabled={count !== CODE_TEXT}
+    >
+      {count !== CODE_TEXT ? `${count}s重新获取` : count}
     </Button>
   );
 };

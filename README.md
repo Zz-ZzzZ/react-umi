@@ -1,9 +1,14 @@
 # react-umi
 
-### 基于react的后台管理系统
-### 用于学习react以及周边生态资源
-### 项目由umi脚手架构建
-### 所用到的技术以及生态:
+
+### [React-Admin](https://zhangjianchengzzz.github.io/) - 在线预览
+
+## 介绍
+
+用于学习react + typescript 以及周边生态资源
+项目由umi脚手架构建
+
+## 所用到的技术以及生态:
 * React Hooks 
 * Typescript
 * Antd react(ui库)
@@ -12,10 +17,19 @@
 * bizcharts图表插件(基于G2)
 * react-transition-group 路由切换动画 
 
-### 数据源
-由脚手架自带的mock模拟简单的网络请求
+## 数据源
+由fastMock提供的线上模拟请求
 
-### 启动
+## 已实现功能
+
+1. 登录/退出
+2. 控制面板
+3. 表格示例
+4. MarkDown示例
+5. 图片裁剪示例
+6. 个人设置示例
+
+## 启动
 ```
 umi dev
 ```

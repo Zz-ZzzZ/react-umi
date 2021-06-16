@@ -3,9 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { getControlPanel } from '@/api/home';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
 import ControlPanel from '@/pages/home/control-panel/ControlPanel';
-import LabelLine from '@/pages/home/label-line/LabelLine';
+import LabelLineChart from '@/pages/home/label-line-chart/LabelLineChart';
 import ControlChart from '@/pages/home/control-chart/ControlChart';
 import LineAdvanceChart from '@/pages/home/line-advance-chart/LineAdvanceChart';
+import AreaChart from '@/pages/home/area-chart/AreaChart';
 
 const controlPanelStatic: Array<any> = [
   {
@@ -73,8 +74,11 @@ const Home = () => {
         <div className={style.chart}>
           <ControlChart chartData={controlPanel} />
         </div>
-        <div className={style.toDo}>
-          <LabelLine />
+        <div className={style.chart}>
+          <LabelLineChart />
+        </div>
+        <div className={style.chart}>
+          <AreaChart />
         </div>
       </div>
     </div>

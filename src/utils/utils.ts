@@ -1,4 +1,4 @@
-export function debounce(func: Function, delay: number): Function {
+export function debounce(func: Function, delay: number) {
   let timer: NodeJS.Timeout | null = null;
   return function (this: any) {
     if (timer) clearTimeout(timer);
@@ -8,11 +8,19 @@ export function debounce(func: Function, delay: number): Function {
   };
 }
 
-export function downLoadFileByBlob(blobObj: object, fileName: string): void {
+export function downLoadFile(objectUrl: any, fileName: string) {
   const a = document.createElement('a');
-  const url = window.URL.createObjectURL(blobObj);
+  const url = window.URL.createObjectURL(objectUrl);
   a.href = url;
   a.download = fileName;
   a.click();
   window.URL.revokeObjectURL(url);
+}
+
+export function downLoadFileByFetch(imgUrl: string, fileName: string) {
+  fetch(imgUrl, { method: 'get', mode: 'cors' })
+    .then((res) => res.blob())
+    .then((data) => {
+      downLoadFile(new Blob([data]), fileName);
+    });
 }

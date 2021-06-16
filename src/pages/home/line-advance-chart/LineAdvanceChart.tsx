@@ -134,8 +134,7 @@ interface ILineAdvanceChart {
 const cardStylePadding = 12 + 12;
 // menuBar的宽度 最大200 最小20
 const menuBarWidth = 200 - 80;
-const LineAdvanceChart = memo(({ state }: { state: ILineAdvanceChart }) => {
-  const { isShowDetailMenu } = state;
+const LineAdvanceChart = memo(({ isShowDetailMenu }: ILineAdvanceChart) => {
   const lineChartRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
 
@@ -149,7 +148,7 @@ const LineAdvanceChart = memo(({ state }: { state: ILineAdvanceChart }) => {
 
   return (
     <div ref={lineChartRef} style={{ width: '100%' }}>
-      <Card title="折线图">
+      <Card title="折线图" size="small">
         <Chart
           padding={[10, 20, 50, 40]}
           // 切换menu的同时重新渲染图表
@@ -164,4 +163,6 @@ const LineAdvanceChart = memo(({ state }: { state: ILineAdvanceChart }) => {
   );
 });
 
-export default connect((state: ILineAdvanceChart) => ({ state }))(LineAdvanceChart);
+export default connect((state: ILineAdvanceChart) => ({
+  isShowDetailMenu: state.isShowDetailMenu,
+}))(LineAdvanceChart);
