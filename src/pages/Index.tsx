@@ -1,6 +1,6 @@
 import NavBar from '@/layout/nav-bar/NavBar';
 import MenuBar from '@/layout/menu-bar/MenuBar';
-import Progress from '@/base/progress/progress';
+import Progress from '@/base/progress/Progress';
 import style from './Index.less';
 import { withRouter } from 'umi';
 import React, { ReactElement } from 'react';

@@ -8,7 +8,7 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
-import Timer from '@/base/timer/timer';
+import Timer from '@/base/timer/Timer';
 import { getUser } from '@/api/user';
 import userAvatar from '../../../public/favicon.ico';
 

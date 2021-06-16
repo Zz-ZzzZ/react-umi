@@ -88,7 +88,7 @@ const TableExample = () => {
             <Input
               placeholder="输入关键词"
               addonBefore={selectSearchElement}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <Button

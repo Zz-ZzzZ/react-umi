@@ -1,5 +1,5 @@
 import style from './Home.less';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getControlPanel } from '@/api/home';
 import { CloudTwoTone, SoundTwoTone, StarTwoTone, FireTwoTone } from '@ant-design/icons';
 import ControlPanel from '@/pages/home/control-panel/ControlPanel';

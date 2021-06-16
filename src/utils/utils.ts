@@ -1,9 +1,9 @@
-export function debounce(func: Function, delay: number) {
+export function debounce<T extends unknown[]>(func: (...args: T) => void, delay: number) {
   let timer: NodeJS.Timeout | null = null;
-  return function (this: any) {
+  return (...args: T) => {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      func.call(this, ...arguments);
+      func.call(null, ...args);
     }, delay);
   };
 }
