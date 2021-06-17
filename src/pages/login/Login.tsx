@@ -7,7 +7,7 @@ import logo from '@/assets/logo.png';
 import { login } from '@/api/user';
 import AntdSpinCustom from '@/base/spin/Spin';
 import { ConnectState } from '@/models/connect';
-import { ILogin } from '@/models/user';
+import { IUserLogin } from '@/models/user';
 
 const getRememberStatus = () => JSON.parse(sessionStorage.getItem('userInfo') as string);
 
@@ -33,7 +33,7 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
     form.setFieldsValue({ username: 'admin', password: 'admin' });
   };
 
-  const handleSubmitForm = async ({ username, password, remember }: ILogin) => {
+  const handleSubmitForm = async ({ username, password, remember }: IUserLogin) => {
     setLoading(true);
     const { data } = await login(username, password);
     if (data.status) {
