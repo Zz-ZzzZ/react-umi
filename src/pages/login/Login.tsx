@@ -6,29 +6,22 @@ import style from './Login.less';
 import logo from '@/assets/logo.png';
 import { login } from '@/api/user';
 import AntdSpinCustom from '@/base/spin/Spin';
+import { ConnectState } from '@/models/connect';
 import { ILogin } from '@/models/user';
 
-interface ILoginUser {
-  userInfo: ILogin;
-}
+const getRememberStatus = () => JSON.parse(sessionStorage.getItem('userInfo') as string);
 
-const setRememberStatus = (status: boolean): void => {
-  sessionStorage.setItem('isRememberUser', JSON.stringify(status));
-};
-
-const getRememberStatus = () => JSON.parse(sessionStorage.getItem('isRememberUser') as string);
-
-const Login = ({ state, dispatch }: { state: ILoginUser; dispatch: Dispatch }) => {
+const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const {
-    userInfo: { username, password },
+    userInfo: { username, password, remember },
   } = state;
 
   useEffect(() => {
     // 获取保存账号密码状态
     const status = getRememberStatus();
-    if (status && username && password) {
+    if (status && username && password && remember) {
       form.setFieldsValue({ username, password });
     }
     return () => {};
@@ -40,22 +33,13 @@ const Login = ({ state, dispatch }: { state: ILoginUser; dispatch: Dispatch }) =
     form.setFieldsValue({ username: 'admin', password: 'admin' });
   };
 
-  const handleSubmitForm = async ({
-    username,
-    password,
-    remember,
-  }: {
-    username: string;
-    password: string;
-    remember: boolean;
-  }) => {
+  const handleSubmitForm = async ({ username, password, remember }: ILogin) => {
     setLoading(true);
     const { data } = await login(username, password);
     if (data.status) {
       message.success(data.message);
-      dispatch({ type: 'userInfo/login', payload: { username, password } });
+      dispatch({ type: 'userInfo/login', payload: { username, password, remember } });
       // 保存此次登录时是否需要保存账号信息
-      setRememberStatus(remember);
       history.replace('/');
     } else {
       message.error(data.message);
@@ -114,4 +98,4 @@ const Login = ({ state, dispatch }: { state: ILoginUser; dispatch: Dispatch }) =
   );
 };
 
-export default connect((state: ILoginUser) => ({ state }))(Login);
+export default connect((state: ConnectState) => ({ state }))(Login);

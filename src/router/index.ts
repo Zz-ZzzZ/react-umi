@@ -42,6 +42,12 @@ export default [
         component: '@/pages/image-crop/ImageCrop',
         title: `图片裁剪 - ${PROJECT_TITLE}`,
       },
+      {
+        exact: true,
+        path: '/map',
+        component: '@/pages/map/Map',
+        title: `地图 - ${PROJECT_TITLE}`,
+      },
     ],
   },
 ];

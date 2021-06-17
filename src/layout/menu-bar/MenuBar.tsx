@@ -4,12 +4,9 @@ import { useState, useMemo } from 'react';
 import logo from '@/assets/logo.png';
 import style from './MenuBar.less';
 import menuList from './MenuList';
+import { ConnectState } from '@/models/connect';
 
-interface IMenuBar {
-  isShowDetailMenu: boolean;
-}
-
-const MenuBar = ({ state }: { state: IMenuBar }) => {
+const MenuBar = ({ state }: { state: ConnectState }) => {
   // 菜单收缩控制
   const { isShowDetailMenu } = state;
   const [routePath, setRoutePath] = useState(history.location.pathname);
@@ -58,4 +55,4 @@ const MenuBar = ({ state }: { state: IMenuBar }) => {
     </div>
   );
 };
-export default connect((state: IMenuBar) => ({ state }))(MenuBar);
+export default connect((state: ConnectState) => ({ state }))(MenuBar);

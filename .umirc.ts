@@ -7,7 +7,6 @@ export default {
   favicon: '/favicon.ico',
   hash: true,
   fastRefresh: {},
-  dynamicImport: {},
   history: { type: 'hash' },
   routes: router,
   theme: style,

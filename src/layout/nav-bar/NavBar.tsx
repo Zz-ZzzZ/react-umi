@@ -11,17 +11,11 @@ import { Dropdown, Menu, Modal, notification, Avatar } from 'antd';
 import Timer from '@/base/timer/Timer';
 import { getUser } from '@/api/user';
 import userAvatar from '../../../public/favicon.ico';
+import { ConnectState } from '@/models/connect';
 
 const { confirm } = Modal;
 
-interface INavBar {
-  isShowDetailMenu: boolean;
-  userInfo: {
-    username: string;
-  };
-}
-
-const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => {
+const NavBar = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch }) => {
   const [userInfo, setUserInfo] = useState<{ name: string }>({ name: '' });
   const { isShowDetailMenu } = state;
 
@@ -100,4 +94,4 @@ const NavBar = ({ state, dispatch }: { state: INavBar; dispatch: Dispatch }) => 
   );
 };
 
-export default connect((state: INavBar) => ({ state }))(NavBar);
+export default connect((state: ConnectState) => ({ state }))(NavBar);

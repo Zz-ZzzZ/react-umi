@@ -7,9 +7,10 @@ export interface IUserInfo {
 export interface ILogin {
   username: string;
   password: string;
+  remember: boolean;
 }
 
-export interface IUser extends IUserInfo, ILogin {}
+export type UserType = IUserInfo & ILogin;
 
 const getUserInfoFromStorage = (key: string) => {
   const user = JSON.parse(<string>sessionStorage.getItem('userInfo'));
@@ -32,16 +33,16 @@ export default {
   // 拷贝一份用作清除登录数据
   state: { ...initState },
   reducers: {
-    setUserInfo: (state: IUser, { payload }: { payload: IUserInfo }) => {
+    setUserInfo: (state: UserType, { payload }: { payload: IUserInfo }) => {
       const { name, tel, address } = payload;
       const value = { ...state, name, tel, address };
       setUserInfoToStorage(value);
       return value;
     },
     // 储存登录账号/密码
-    login: (state: IUser, { payload }: { payload: ILogin }) => {
-      const { username, password } = payload;
-      const value = { ...state, username, password };
+    login: (state: UserType, { payload }: { payload: ILogin }) => {
+      const { username, password, remember } = payload;
+      const value = { ...state, username, password, remember };
       setUserInfoToStorage(value);
       return value;
     },

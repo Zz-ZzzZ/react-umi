@@ -3,19 +3,15 @@ import style from './Person.less';
 import userAvatar from '../../../public/favicon.ico';
 import { Card, Form, Tabs } from 'antd';
 import { connect } from 'umi';
-import { IUser } from '@/models/user';
+import { ConnectState } from '@/models/connect';
 import { useEffect } from 'react';
 import Basic from '@/pages/person/basic/Basic';
 import Safe from '@/pages/person/safe/Safe';
 import Notice from '@/pages/person/notice/Notice';
 
-interface IPerson {
-  userInfo: IUser;
-}
-
 const { TabPane } = Tabs;
 
-const Person = ({ state }: { state: IPerson }) => {
+const Person = ({ state }: { state: ConnectState }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -51,4 +47,4 @@ const Person = ({ state }: { state: IPerson }) => {
   );
 };
 
-export default connect((state: IPerson) => ({ state }))(Person);
+export default connect((state: ConnectState) => ({ state }))(Person);

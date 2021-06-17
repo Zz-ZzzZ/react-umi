@@ -16,6 +16,7 @@
     "dva": "^2.6.0-beta.6",
     "mockjs": "^1.1.0",
     "react": "^16.8.6",
+    "react-amap": "^1.2.8",
     "react-cropper": "^2.1.7",
     "react-dom": "^16.8.6",
     "react-markdown": "^6.0.2",
