@@ -1,5 +1,5 @@
 import { Table, Input, Select, Button, Space, Modal, message, Card } from 'antd';
-import { useEffect, useRef, useState, ChangeEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import style from './Table.less';
 import { delTableRowById, getTable } from '@/api/table';
 import { FileExcelOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
@@ -8,6 +8,8 @@ import XLSX from 'xlsx';
 import RowDrawer, { IRowDrawerRef } from '@/pages/table/row-drawer/RowDrawer';
 import AntdSpinCustom from '@/base/spin/Spin';
 
+type cityType = string;
+
 const { Column } = Table;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -15,6 +17,7 @@ const { confirm } = Modal;
 let tableDataCopy: Array<any> = [];
 const TableExample = () => {
   const [tableData, setTableData] = useState<Array<any>>([]);
+  const [cityFilter, setCityFilter] = useState<Array<any>>([]);
   const [condition, setCondition] = useState('city');
   const [isLoading, setLoading] = useState(false);
   const rowDrawer = useRef<IRowDrawerRef>(null);
@@ -22,9 +25,17 @@ const TableExample = () => {
   const getTableData = async () => {
     setLoading(true);
     const { data } = await getTable();
-    console.log(data);
     if (data.list && data.list.length > 0) {
+      // 获取城市的省份信息并去重复
+      const cityList = Array.from(
+        new Set(data.list.map((item: { city: string }) => item.city.split(' ')[0])),
+      );
+      // 包装成表格筛选的数据形式
+      const cityFilterList = cityList.map((item) => {
+        return { text: item, value: item };
+      });
       setTableData(data.list);
+      setCityFilter(cityFilterList);
       tableDataCopy = [...data.list];
     }
     setLoading(false);
@@ -101,8 +112,17 @@ const TableExample = () => {
           </Button>
         </div>
         <AntdSpinCustom spinning={isLoading}>
-          <Table dataSource={tableData} rowKey="id" pagination={{ showSizeChanger: false }}>
-            <Column title="城市" dataIndex="city" key="city" ellipsis={true} />
+          <Table dataSource={tableData} rowKey="id">
+            <Column
+              title="城市"
+              dataIndex="city"
+              key="city"
+              ellipsis={true}
+              filters={cityFilter}
+              onFilter={(value, { city }: { city: cityType }) =>
+                city.indexOf(value as cityType) === 0
+              }
+            />
             <Column title="姓名" dataIndex="name" key="name" width={200} ellipsis={true} />
             <Column title="邮件" dataIndex="email" key="email" width={200} ellipsis={true} />
             <Column
