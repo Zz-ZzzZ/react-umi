@@ -6,13 +6,6 @@
   justify-content: center;
   align-items: center;
 
-  @keyframes fade-in {
-    to{
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   &Container{
     width: 30%;
     position: relative;
@@ -22,10 +15,7 @@
     padding: 48px 24px;
     border-radius: 12px;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.12);
-    animation: fade-in 0.5s linear 0.5s 1;
-    animation-fill-mode: forwards;
-    opacity: 0;
-    transform: translateX(50px);
+    .fadeToLeft(0.5s)
   }
 
   &Title {
@@ -56,15 +46,30 @@
         transform: rotate(360deg);
       }
     }
+
+  }
+
+  &User{
+    .fadeToLeft(1s)
+  }
+
+  &Password{
+    .fadeToLeft(1.25s)
   }
 
   &Forgot{
     display: flex;
     justify-content: space-between;
+    .fadeToLeft(1.5s)
+  }
+
+  &Submit{
+    .fadeToTop(1.75s)
   }
 
   &Register{
     margin-top: 12px;
+    .fadeToTop(2s)
   }
 }
 .loginBg {
@@ -77,4 +82,33 @@
   left: 0;
   z-index: -1;
 }
+
+.fadeToLeft(@delay){
+  opacity: 0;
+  transform: translateX(50px);
+  animation: fade-to-left 0.5s linear @delay 1;
+  animation-fill-mode: forwards;
+
+  @keyframes fade-to-left {
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.fadeToTop(@delay){
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fade-to-left 0.5s linear @delay 1;
+  animation-fill-mode: forwards;
+
+  @keyframes fade-to-left {
+    to{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 

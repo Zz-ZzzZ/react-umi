@@ -61,11 +61,14 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
             onFinish={handleSubmitForm}
           >
             <Form.Item name="username" rules={[{ required: true, message: '请输入你的用户名' }]}>
-              <Input placeholder="手动输入admin或点击忘记密码" />
+              <Input placeholder="手动输入admin或点击忘记密码" className={style.loginUser} />
             </Form.Item>
 
             <Form.Item name="password" rules={[{ required: true, message: '请输入你的密码' }]}>
-              <Input.Password placeholder="手动输入admin或点击忘记密码" />
+              <Input.Password
+                placeholder="手动输入admin或点击忘记密码"
+                className={style.loginPassword}
+              />
             </Form.Item>
             <Form.Item>
               <div className={style.loginForgot}>
@@ -80,7 +83,7 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" block>
+              <Button type="primary" htmlType="submit" block className={style.loginSubmit}>
                 登录
               </Button>
               <Button block className={style.loginRegister}>
