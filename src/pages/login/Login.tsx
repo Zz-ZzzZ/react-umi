@@ -1,5 +1,4 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import React, { MouseEvent, useState, useEffect } from 'react';
 import { connect, history, Dispatch } from 'umi';
 import style from './Login.less';
@@ -92,49 +91,6 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
             </Form.Item>
           </Form>
         </div>
-        {/*<div className={style.loginTitle}>*/}
-        {/*  <img src={logo} alt="" className={style.loginTitleIcon} />*/}
-        {/*  <div>React Admin</div>*/}
-        {/*</div>*/}
-        {/*<div className={style.loginForm}>*/}
-        {/*  <Form*/}
-        {/*    layout="vertical"*/}
-        {/*    initialValues={{ remember: true }}*/}
-        {/*    form={form}*/}
-        {/*    onFinish={handleSubmitForm}*/}
-        {/*  >*/}
-        {/*    <Form.Item*/}
-        {/*      name="username"*/}
-        {/*      rules={[{ required: true, message: 'Please input you username' }]}*/}
-        {/*    >*/}
-        {/*      <Input prefix={<UserOutlined />} placeholder="手动输入admin或点击忘记密码" />*/}
-        {/*    </Form.Item>*/}
-
-        {/*    <Form.Item*/}
-        {/*      name="password"*/}
-        {/*      rules={[{ required: true, message: 'Please input you password' }]}*/}
-        {/*    >*/}
-        {/*      <Input.Password prefix={<LockOutlined />} placeholder="手动输入admin或点击忘记密码" />*/}
-        {/*    </Form.Item>*/}
-        {/*    <Form.Item>*/}
-        {/*      <div className={style.loginFormForgot}>*/}
-        {/*        <Form.Item name="remember" valuePropName="checked" noStyle>*/}
-        {/*          <Checkbox>Remember Me</Checkbox>*/}
-        {/*        </Form.Item>*/}
-
-        {/*        <a href="" onClick={(e) => handleClickForgot(e)}>*/}
-        {/*          Forgot password ?*/}
-        {/*        </a>*/}
-        {/*      </div>*/}
-        {/*    </Form.Item>*/}
-
-        {/*    <Form.Item>*/}
-        {/*      <Button type="primary" htmlType="submit" block>*/}
-        {/*        Submit*/}
-        {/*      </Button>*/}
-        {/*    </Form.Item>*/}
-        {/*  </Form>*/}
-        {/*</div>*/}
       </div>
     </AntdSpinCustom>
   );

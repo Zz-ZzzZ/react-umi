@@ -1,19 +1,28 @@
+@import "~@/utils/mixin";
 .home {
-  .chartAndTodo {
+  .controlPanel{
+    .fadeToTop(0.5s);
+  }
+
+  .lineChart {
+    width: 100%;
+    margin-top: 20px;
+
+    .fadeToTop(1s);
+  }
+
+  .otherChart {
     width: 100%;
     margin-top: 20px;
     height: 400px;
     display: flex;
     justify-content: space-between;
+    .fadeToLeft(1.5s);
 
-    .chart {
+    &Item {
       width: 32%;
       height: 100%;
     }
   }
 
-  .lineBlock {
-    width: 100%;
-    margin-top: 20px;
-  }
 }

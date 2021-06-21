@@ -66,18 +66,20 @@ const Home = () => {
 
   return (
     <div className={`container ${style.home}`}>
-      <ControlPanel panelList={controlPanel} />
-      <div className={style.lineBlock}>
+      <div className={style.controlPanel}>
+        <ControlPanel panelList={controlPanel} />
+      </div>
+      <div className={style.lineChart}>
         <LineAdvanceChart />
       </div>
-      <div className={style.chartAndTodo}>
-        <div className={style.chart}>
+      <div className={style.otherChart}>
+        <div className={style.otherChartItem}>
           <ControlChart chartData={controlPanel} />
         </div>
-        <div className={style.chart}>
+        <div className={style.otherChartItem}>
           <LabelLineChart />
         </div>
-        <div className={style.chart}>
+        <div className={style.otherChartItem}>
           <AreaChart />
         </div>
       </div>

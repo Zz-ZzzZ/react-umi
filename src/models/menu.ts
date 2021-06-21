@@ -2,7 +2,7 @@ export type MenuType = boolean;
 
 export default {
   namespace: 'isShowDetailMenu',
-  state: true,
+  state: false,
   reducers: {
     toggle: (state: MenuType) => !state,
   },
