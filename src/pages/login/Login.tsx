@@ -49,50 +49,89 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
 
   return (
     <AntdSpinCustom spinning={loading} tip="登录中...">
+      <div className={style.loginBg} />
       <div className={style.login}>
-        <div className={style.loginBg} />
-        <div className={style.loginTitle}>
-          <img src={logo} alt="" className={style.loginTitleIcon} />
-        </div>
-        <div className={style.loginForm}>
+        <div className={style.loginContainer}>
+          <img className={style.loginIcon} src={logo} />
+          <div className={style.loginTitle}>登录</div>
           <Form
             layout="vertical"
             initialValues={{ remember: true }}
             form={form}
             onFinish={handleSubmitForm}
           >
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: 'Please input you username' }]}
-            >
-              <Input prefix={<UserOutlined />} placeholder="手动输入admin或点击忘记密码" />
+            <Form.Item name="username" rules={[{ required: true, message: '请输入你的用户名' }]}>
+              <Input placeholder="手动输入admin或点击忘记密码" />
             </Form.Item>
 
-            <Form.Item
-              name="password"
-              rules={[{ required: true, message: 'Please input you password' }]}
-            >
-              <Input.Password prefix={<LockOutlined />} placeholder="手动输入admin或点击忘记密码" />
+            <Form.Item name="password" rules={[{ required: true, message: '请输入你的密码' }]}>
+              <Input.Password placeholder="手动输入admin或点击忘记密码" />
             </Form.Item>
             <Form.Item>
-              <div className={style.loginFormForgot}>
+              <div className={style.loginForgot}>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember Me</Checkbox>
+                  <Checkbox>记住账号密码</Checkbox>
                 </Form.Item>
 
                 <a href="" onClick={(e) => handleClickForgot(e)}>
-                  Forgot password ?
+                  忘记密码
                 </a>
               </div>
             </Form.Item>
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                Submit
+                登录
+              </Button>
+              <Button block className={style.loginRegister}>
+                注册
               </Button>
             </Form.Item>
           </Form>
         </div>
+        {/*<div className={style.loginTitle}>*/}
+        {/*  <img src={logo} alt="" className={style.loginTitleIcon} />*/}
+        {/*  <div>React Admin</div>*/}
+        {/*</div>*/}
+        {/*<div className={style.loginForm}>*/}
+        {/*  <Form*/}
+        {/*    layout="vertical"*/}
+        {/*    initialValues={{ remember: true }}*/}
+        {/*    form={form}*/}
+        {/*    onFinish={handleSubmitForm}*/}
+        {/*  >*/}
+        {/*    <Form.Item*/}
+        {/*      name="username"*/}
+        {/*      rules={[{ required: true, message: 'Please input you username' }]}*/}
+        {/*    >*/}
+        {/*      <Input prefix={<UserOutlined />} placeholder="手动输入admin或点击忘记密码" />*/}
+        {/*    </Form.Item>*/}
+
+        {/*    <Form.Item*/}
+        {/*      name="password"*/}
+        {/*      rules={[{ required: true, message: 'Please input you password' }]}*/}
+        {/*    >*/}
+        {/*      <Input.Password prefix={<LockOutlined />} placeholder="手动输入admin或点击忘记密码" />*/}
+        {/*    </Form.Item>*/}
+        {/*    <Form.Item>*/}
+        {/*      <div className={style.loginFormForgot}>*/}
+        {/*        <Form.Item name="remember" valuePropName="checked" noStyle>*/}
+        {/*          <Checkbox>Remember Me</Checkbox>*/}
+        {/*        </Form.Item>*/}
+
+        {/*        <a href="" onClick={(e) => handleClickForgot(e)}>*/}
+        {/*          Forgot password ?*/}
+        {/*        </a>*/}
+        {/*      </div>*/}
+        {/*    </Form.Item>*/}
+
+        {/*    <Form.Item>*/}
+        {/*      <Button type="primary" htmlType="submit" block>*/}
+        {/*        Submit*/}
+        {/*      </Button>*/}
+        {/*    </Form.Item>*/}
+        {/*  </Form>*/}
+        {/*</div>*/}
       </div>
     </AntdSpinCustom>
   );
