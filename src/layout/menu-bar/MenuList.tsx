@@ -4,7 +4,6 @@ import {
   TableOutlined,
   UserOutlined,
   NumberOutlined,
-  GlobalOutlined,
 } from '@ant-design/icons';
 const menuList = [
   {
@@ -36,12 +35,6 @@ const menuList = [
     icon: <NumberOutlined />,
     name: '图片裁剪',
     path: '/image-crop',
-  },
-  {
-    key: '6',
-    icon: <GlobalOutlined />,
-    name: '地图',
-    path: '/map',
   },
 ];
 
