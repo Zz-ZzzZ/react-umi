@@ -51,7 +51,7 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
     <AntdSpinCustom spinning={loading} tip="登录中...">
       <div className={style.loginBg} />
       <div className={style.login}>
-        <Card cardClassName={style.loginContainer}>
+        <Card cardClassName={`${style.loginContainer} padding-large`}>
           <img className={style.loginIcon} src={logo} />
           <div className={style.loginTitle}>登录</div>
           <Form

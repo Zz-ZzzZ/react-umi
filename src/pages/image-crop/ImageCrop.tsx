@@ -47,6 +47,14 @@ const ImageCrop = () => {
   return (
     <div className={`container ${style.imageCrop}`}>
       <Card cardClassName="padding-large">
+        <div className={style.cropSwitch}>
+          <Switch
+            checkedChildren="矩形"
+            unCheckedChildren="圆形"
+            defaultChecked
+            onChange={(e) => setDisplayMode(e)}
+          />
+        </div>
         <div className={style.cropContainer}>
           <div className={`${style.cropContainerLeft} ${!displayMode && style.circularMode}`}>
             <Cropper

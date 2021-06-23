@@ -107,11 +107,11 @@ const MarkDown = () => {
         <div className={style.actionBar}>
           <Space>
             <Upload accept=".md" onChange={handleUploadFile} showUploadList={false} maxCount={1}>
-              <Button type="primary" icon={<UploadOutlined />} loading={isLoading}>
-                导入.md文件
+              <Button icon={<UploadOutlined />} loading={isLoading} disabled>
+                线上暂不可用导入
               </Button>
             </Upload>
-            <Button icon={<DownloadOutlined />} onClick={toggleModalVisible}>
+            <Button icon={<DownloadOutlined />} onClick={toggleModalVisible} type="primary">
               导出为.md文件
             </Button>
           </Space>
