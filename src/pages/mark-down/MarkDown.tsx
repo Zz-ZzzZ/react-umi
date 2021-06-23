@@ -2,7 +2,8 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ArrowRightOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Input, Card, Button, Space, Upload, message, Modal } from 'antd';
+import { Input, Button, Space, Upload, message, Modal } from 'antd';
+import Card from '@/base/card/Card';
 import style from './MarkDown.less';
 import { downLoadFile } from '@/utils/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
@@ -102,7 +103,7 @@ const MarkDown = () => {
 
   return (
     <div className={`container ${style.markDown}`}>
-      <Card title="MarkDown示例">
+      <Card cardClassName="padding-large">
         <div className={style.actionBar}>
           <Space>
             <Upload accept=".md" onChange={handleUploadFile} showUploadList={false} maxCount={1}>

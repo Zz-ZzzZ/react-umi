@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Person.less';
-import userAvatar from '../../../public/favicon.ico';
-import { Card, Form, Tabs } from 'antd';
+import { Form, Tabs } from 'antd';
+import Card from '@/base/card/Card';
 import { connect } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { useEffect } from 'react';
@@ -21,7 +21,7 @@ const Person = ({ state }: { state: ConnectState }) => {
 
   return (
     <div className={`container ${style.person}`}>
-      <Card title="个人设置">
+      <Card cardClassName="padding-large">
         <Tabs tabPosition="left">
           <TabPane tab="基本设置" key="1">
             <div className={style.tabContent}>

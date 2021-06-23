@@ -1,4 +1,5 @@
-import { Table, Input, Select, Button, Space, Modal, message, Card } from 'antd';
+import { Table, Input, Select, Button, Space, Modal, message } from 'antd';
+import Card from '@/base/card/Card';
 import { useEffect, useRef, useState } from 'react';
 import style from './Table.less';
 import { delTableRowById, getTable } from '@/api/table';
@@ -93,7 +94,7 @@ const TableExample = () => {
 
   return (
     <div className={`container`}>
-      <Card title="表格示例">
+      <Card cardClassName="padding-large">
         <div className={style.tableAction}>
           <div className={style.tableActionInput}>
             <Input

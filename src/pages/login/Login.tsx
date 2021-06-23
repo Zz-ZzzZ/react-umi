@@ -1,6 +1,7 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import React, { MouseEvent, useState, useEffect } from 'react';
 import { connect, history, Dispatch } from 'umi';
+import Card from '@/base/card/Card';
 import style from './Login.less';
 import logo from '@/assets/logo.png';
 import { login } from '@/api/user';
@@ -50,7 +51,7 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
     <AntdSpinCustom spinning={loading} tip="登录中...">
       <div className={style.loginBg} />
       <div className={style.login}>
-        <div className={style.loginContainer}>
+        <Card cardClassName={style.loginContainer}>
           <img className={style.loginIcon} src={logo} />
           <div className={style.loginTitle}>登录</div>
           <Form
@@ -90,7 +91,7 @@ const Login = ({ state, dispatch }: { state: ConnectState; dispatch: Dispatch })
               </Button>
             </Form.Item>
           </Form>
-        </div>
+        </Card>
       </div>
     </AntdSpinCustom>
   );

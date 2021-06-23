@@ -1,5 +1,5 @@
 import { Chart, Interval, Tooltip, Axis, Coordinate } from 'bizcharts';
-import { Card } from 'antd';
+import Card from '@/base/card/Card';
 
 const LabelLineChart = () => {
   const data = [
@@ -12,8 +12,8 @@ const LabelLineChart = () => {
   ];
 
   return (
-    <Card title="玫瑰图" size="small">
-      <Chart height={400} data={data} autoFit>
+    <Card contentCenter>
+      <Chart height={300} data={data} autoFit>
         <Coordinate
           type="polar"
           startAngle={Math.PI} // 起始角度

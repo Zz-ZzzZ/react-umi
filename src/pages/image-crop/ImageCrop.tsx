@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
-import { Card, Switch, Button, message } from 'antd';
+import { Switch, Button, message } from 'antd';
+import Card from '@/base/card/Card';
 import { Cropper } from 'react-cropper';
 import imageExample from '@/assets/logo.png';
 import 'cropperjs/dist/cropper.css';
@@ -45,17 +46,7 @@ const ImageCrop = () => {
 
   return (
     <div className={`container ${style.imageCrop}`}>
-      <Card
-        title="图片裁剪"
-        extra={
-          <Switch
-            checkedChildren="矩形"
-            unCheckedChildren="圆形"
-            defaultChecked
-            onChange={(e) => setDisplayMode(e)}
-          />
-        }
-      >
+      <Card cardClassName="padding-large">
         <div className={style.cropContainer}>
           <div className={`${style.cropContainerLeft} ${!displayMode && style.circularMode}`}>
             <Cropper
@@ -68,7 +59,7 @@ const ImageCrop = () => {
             />
           </div>
           <div className={style.cropContainerRight}>
-            <Card title="裁剪预览" size="small">
+            <Card>
               <div
                 className={`img-preview ${style.displayBlock} ${
                   displayMode ? style.rectMode : style.circularMode

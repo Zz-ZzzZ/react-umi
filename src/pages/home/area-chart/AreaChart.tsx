@@ -1,6 +1,6 @@
 import { memo } from 'react';
+import Card from '@/base/card/Card';
 import { Chart, Area, Line, Tooltip, Axis, Coordinate } from 'bizcharts';
-import { Card } from 'antd';
 
 const AreaChart = () => {
   const data = [
@@ -26,8 +26,8 @@ const AreaChart = () => {
   };
 
   return (
-    <Card title="面积图" size="small">
-      <Chart scale={scale} height={400} data={data} autoFit>
+    <Card contentCenter>
+      <Chart scale={scale} height={300} data={data} autoFit>
         <Tooltip shared />
         <Area position="year*value" />
         <Line position="year*value" />
