@@ -1,8 +1,5 @@
 # react-umi
 
-
-### [React-Admin](https://zhangjianchengzzz.github.io/) - 在线预览
-
 ## 介绍
 
 用于学习react + typescript 以及周边生态资源
